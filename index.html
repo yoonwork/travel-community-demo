@@ -324,6 +324,145 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
 .side .credit{margin-top:12px;font-size:.8rem;color:var(--mut)}
 .foot{padding:24px 16px 32px;color:var(--mut);font-size:.82rem;line-height:1.6}
 mark{background:#FFF0B3;color:inherit;border-radius:3px;padding:0 1px}
+
+/* ===== 2차 다듬기 (실제 제품 참고: 당근 동네생활 · 네이버 카페 · 마이리얼트립 커뮤니티 · 시놀) ===== */
+.grow{flex:1}
+body{background:#EEF0F3}
+/* 흰 바탕 + 8px 회색 띠로 섹션 나누기 (당근·토스) */
+.scroller[data-v="home"],.scroller[data-v="board"],.scroller[data-v="post"],.scroller[data-v="search"],.scroller[data-v="write"]{background:#fff}
+.gap{height:8px;background:#F2F4F6;margin-top:20px}
+.appbar{border-bottom-color:transparent}
+.fsbtn{border:0;background:#F2F4F6;color:var(--ink-2);min-height:40px}
+.fsbtn:hover{background:#E8EBEF}
+.sec-h{margin:20px 16px 4px}
+.sec-h h2{font-size:1.24rem;letter-spacing:-.02em}
+.sec-h.hot{flex-direction:column;align-items:flex-start;gap:0}
+.updated{font-size:.84rem}
+
+/* 배너: 쪽수 알약은 오른쪽 아래 (네이버 카페·마이리얼트립) */
+.banner{border-radius:16px;margin-top:8px}
+.banner .count{height:34px;background:rgba(0,0,0,.45)}
+
+/* 홈 바로가기: 둥근 아이콘 + 글자 (마이리얼트립 아이콘 줄 · 네이버 카페 '내 카페' · 시놀) */
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:20px 12px 0}
+.qk{display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px 0 8px;border:0;background:none;border-radius:16px;min-height:var(--tap)}
+.qk:hover{background:#F7F8FA}
+.qk .ci{display:grid;place-items:center;width:60px;height:60px;border-radius:50%}
+.qk .ci .ic{width:28px;height:28px;stroke-width:2}
+.qk-abroad .ci{background:#E8F1FF;color:#1D5FD8}
+.qk-domestic .ci{background:#E4F6EC;color:#127A4F}
+.qk-lounge .ci{background:#FFF1E0;color:#B85C00}
+.qk b{font-size:1.06rem;font-weight:700;letter-spacing:-.01em}
+.qk small{margin-top:-6px;font-size:.84rem;color:var(--mut)}
+.qk small em{font-style:normal;font-weight:700;color:var(--brand-text)}
+
+/* 공지 줄: 테두리 없이 회색 채움 */
+.notice-row{margin:16px 16px 0;border:0;background:#F5F6F8;border-radius:14px;min-height:56px}
+.nt{flex:none;display:inline-flex;align-items:center;height:26px;padding:0 9px;border-radius:7px;background:var(--brand-tint);color:var(--brand-text);font-size:.8rem;font-weight:700}
+
+/* 인기글 (네이버 카페 '실시간 HOT') */
+.rank{margin:0;padding:0;border:0;border-radius:0;background:none}
+.rank li+li{border-top:1px solid #F0F2F5}
+.rank button{padding:14px 16px;min-height:88px;align-items:flex-start}
+.rank .no{width:22px;padding-top:1px;font-size:1.12rem;color:var(--ink);font-weight:800}
+.rank li:nth-child(-n+3) .no{color:var(--brand-text)}
+.rank .t small{margin-top:4px}
+.cnts{display:flex;gap:10px;margin-top:4px;color:var(--mut);font-size:.84rem;font-variant-numeric:tabular-nums}
+.cnts>span{display:inline-flex;align-items:center;gap:3px}
+.cnts .ic{width:16px;height:16px}
+.thm{position:relative;flex:none;border-radius:12px;overflow:hidden;background:#E6E9EE}
+.thm img{width:72px;height:72px;object-fit:cover;border-radius:0}
+.thm i{position:absolute;right:4px;bottom:4px;padding:0 6px;border-radius:6px;background:rgba(0,0,0,.55);color:#fff;font-style:normal;font-size:.72rem;font-weight:700;line-height:1.6}
+
+/* 방금 올라온 글: 피드 카드 (네이버 카페 '구독') */
+.feed{display:flex;flex-direction:column}
+.fcard{display:flex;flex-direction:column;gap:6px;width:100%;padding:16px;border:0;border-bottom:1px solid #F0F2F5;background:none;text-align:left}
+.fcard:last-child{border-bottom:0}
+.fhead{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.fhead b{display:block;font-weight:700;font-size:.96rem;line-height:1.3}
+.fhead small{display:block;color:var(--mut);font-size:.84rem;line-height:1.4}
+.fcard strong{font-size:1.12rem;line-height:1.45;font-weight:700;letter-spacing:-.01em}
+.pv{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--ink-2);font-size:.96rem;line-height:1.55}
+.fimg{position:relative;display:block;margin-top:6px;border-radius:14px;overflow:hidden;background:#E6E9EE}
+.fimg img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.fimg i{position:absolute;right:10px;bottom:10px;padding:2px 9px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;font-style:normal;font-size:.8rem;font-weight:600}
+.ffoot{display:flex;align-items:center;gap:14px;margin-top:6px;color:var(--mut);font-size:.9rem}
+.ffoot>span{display:inline-flex;align-items:center;gap:4px}
+.ffoot .ic{width:19px;height:19px}
+
+/* 게시판: 굵은 밑줄 탭 + 검정 칩 (당근 · 네이버 카페 인기글) */
+.board-head{border-bottom:0;padding:18px 0 0}
+.board-head h2{font-size:1.5rem;letter-spacing:-.02em}
+.board-head p{margin-bottom:8px}
+.utabs{display:flex;gap:4px;padding:0 8px;border-bottom:1px solid #E8EBEF;overflow-x:auto;scrollbar-width:none}
+.utabs::-webkit-scrollbar{display:none}
+.utabs button{flex:none;position:relative;min-height:50px;padding:0 10px;border:0;background:none;font-weight:600;font-size:1.02rem;color:var(--mut-2);white-space:nowrap}
+.utabs button[aria-pressed="true"]{color:var(--ink);font-weight:800}
+.utabs button[aria-pressed="true"]::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:3px;border-radius:2px;background:var(--ink)}
+.board-head .chips{padding:12px 16px 14px}
+.chip{border:0;background:#F2F4F6;color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink)}
+
+/* 글 목록 한 줄 (당근 동네생활) */
+.list>li{border-bottom:1px solid #F0F2F5}
+.prow{position:relative;padding:16px 16px 14px;min-height:96px}
+.prow .meta-top{margin-bottom:6px}
+.ctag{display:inline-flex;align-items:center;height:24px;padding:0 7px;border-radius:6px;background:#F2F4F6;color:var(--ink-2);font-size:.78rem;font-weight:600}
+.prow b{font-weight:700;font-size:1.08rem;letter-spacing:-.01em}
+.prow .pv{-webkit-line-clamp:1;margin-top:2px;font-size:.94rem;color:var(--mut)}
+.prow .meta{gap:0;margin-top:6px;font-size:.86rem}
+.prow:not(:has(.thm)) .meta{padding-right:104px}
+.prow:has(.thm) .meta{white-space:nowrap;flex-wrap:nowrap;overflow:hidden;margin-right:-8px}
+.prow .meta span+span::before{content:"·";margin:0 5px;color:var(--mut-2)}
+.prow .thm img{width:84px;height:84px}
+.prow .thm{align-self:flex-start;margin-top:2px}
+.prow>.cnts{position:absolute;right:16px;bottom:14px;margin:0}
+.prow.pinned{background:#F7F9FF}
+.prow.blind{min-height:72px}
+
+/* 글쓰기 버튼 (당근 '+ 글쓰기') */
+.fab{bottom:84px;min-height:54px;padding:0 20px 0 16px;box-shadow:0 4px 14px rgba(29,95,216,.32)}
+.fab .ic{stroke-width:2.4;width:22px;height:22px}
+
+/* 하단 탭 */
+.tabbar{border-top-color:#EEF0F3}
+.tabbar button[aria-current="page"] .ic{stroke-width:2.3}
+
+/* 글 상세 (네이버 카페 글 머리) */
+.post{padding:18px 16px 4px}
+.post .where{align-items:center}
+.crumb{display:inline-flex;align-items:center;gap:2px;color:var(--brand-text);font-weight:600;font-size:.9rem}
+.crumb .ic{width:15px;height:15px;stroke-width:2.2}
+.post h2{margin-top:8px;font-size:1.45rem;letter-spacing:-.02em}
+.author{margin:14px 0 18px;padding-bottom:16px;border-bottom-color:#F0F2F5}
+.ccount{display:inline-flex;align-items:center;gap:4px;color:var(--mut);font-size:.9rem}
+.ccount .ic{width:18px;height:18px}
+.body{font-size:1.08rem;line-height:1.75;color:#222A33}
+.ctag.rg{background:none;color:var(--mut);padding:0 2px;font-weight:500}
+.scroller[data-v="write"] .bottom-cta{background:linear-gradient(180deg,rgba(255,255,255,0),#fff 24%)}
+.photos img{aspect-ratio:auto;max-height:520px}
+.photos button{border-radius:14px}
+.actions{align-items:center;border-top:1px solid #F0F2F5;margin-top:8px}
+.like{border:0;background:#F2F4F6}
+.rep{min-height:var(--tap);padding:0 8px;border:0;background:none;color:var(--mut);font-size:.92rem;text-decoration:underline;text-underline-offset:3px}
+.comments{margin-top:0;border-top:8px solid #F2F4F6}
+.comments h3{font-size:1.16rem}
+.cmt{border-top-color:#F0F2F5}
+.cbox{border:0;background:#F5F6F8;border-radius:16px}
+.cbox textarea{border-color:#E3E6EA}
+.reply{border-left:0;padding-left:0;margin-left:44px}
+
+/* 글쓰기·검색 입력: 회색 채움 (토스식) */
+.scroller[data-v="write"] .inp,.search-in .inp{background:#F5F6F8;border-color:transparent}
+.scroller[data-v="write"] .inp:focus,.search-in .inp:focus{background:#fff;border-color:var(--brand)}
+.scroller[data-v="write"] .seg{background:#F2F4F6}
+.thumbs label.add{background:#F5F6F8;border-color:#D9DDE3}
+.search-in{border-bottom:0}
+
+/* PC 왼쪽 안내: 테두리 없는 흰 상자 */
+.side .box{border:0;border-radius:20px}
+.fsseg button{white-space:nowrap;padding:0 10px}
+.phone{border-color:#D9DDE3}
 </style>
 </head>
 <body>
@@ -347,7 +486,7 @@ mark{background:#FFF0B3;color:inherit;border-radius:3px;padding:0 1px}
     <header class="appbar" id="appbar"></header>
     <main class="scroller" id="view" tabindex="-1"></main>
     <nav class="tabbar" id="tabbar" aria-label="주 메뉴"></nav>
-    <button class="fab" id="fab" type="button" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>글쓰기</button>
+    <button class="fab" id="fab" type="button" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>글쓰기</button>
     <div class="layer" id="layer" aria-live="polite"></div>
   </div>
 </div>
@@ -465,7 +604,7 @@ window.addEventListener('hashchange',()=>{S.hist.push(location.hash);render()});
 function route(){const h=(location.hash||'#home').slice(1).split('/');return{name:h[0]||'home',arg:h[1]}}
 
 function render(){
-  const r=route();closeLayer();view.onclick=null;fab.hidden=true;
+  const r=route();closeLayer();view.onclick=null;fab.hidden=true;view.dataset.v=r.name;
   phone.classList.toggle('wide',r.name==='admin');
   const map={home:vHome,board:vBoard,post:vPost,search:vSearch,write:vWrite,join:vJoin,my:vMy,admin:vAdmin};
   (map[r.name]||vHome)(r.arg);
@@ -515,12 +654,12 @@ function vHome(){
     <div class="track" id="track" style="transform:translateX(-${S.slide*100}%)">${bs.map((b,i)=>`<button class="slide" type="button" data-link="${esc(b.link)}" aria-label="${esc(b.title)}" ${i!==S.slide?'tabindex="-1"':''}><img src="${U(b.img,900)}" alt="" ${i?'loading="lazy"':''}><span class="txt"><strong>${esc(b.title)}</strong><small>${esc(b.sub)}</small></span></button>`).join('')}</div>
     <div class="count"><button type="button" data-sl="-1" aria-label="이전 배너">${ic('left')}</button><span id="slno">${S.slide+1} / ${bs.length}</span><button type="button" data-sl="1" aria-label="다음 배너">${ic('right')}</button></div>
   </section>`:''}
-  <nav class="bigtabs" aria-label="게시판">${Object.entries(BOARDS).map(([k,b])=>`<button class="bigtab" type="button" data-go="board/${k}">${ic(b.icon)}${b.name}<small>오늘 새 글 ${cnt(k)}</small></button>`).join('')}</nav>
-  ${notices.map(n=>`<button class="notice-row" type="button" data-go="post/${n.id}"><span class="tag notice">공지</span><span>${esc(n.title.replace('[공지] ',''))}</span></button>`).join('')}
-  <div class="sec-h"><h2>실시간 인기글</h2><span class="updated">방금 업데이트</span></div>
-  <ol class="rank">${hot.map((p,i)=>`<li><button type="button" data-go="post/${p.id}"><span class="no">${i+1}</span><span class="t"><b>${esc(p.title)}</b><small>${BOARDS[p.board].name} · ${esc(p.region)} · 좋아요 ${p.likes} · 댓글 ${ncm(p)}</small></span>${p.photos[0]?`<img src="${U(p.photos[0],200)}" alt="" loading="lazy">`:''}</button></li>`).join('')}</ol>
-  <div class="sec-h"><h2>방금 올라온 글</h2><button class="more" type="button" data-go="board/lounge">라운지 전체 보기</button></div>
-  <ul class="list" style="margin:0 16px;border-radius:20px;overflow:hidden;border:1px solid var(--line-2)">${POSTS.filter(p=>vis(p)&&!p.notice).sort((a,b)=>a.ago-b.ago).slice(0,4).map(rowHTML).join('')}</ul>
+  <nav class="quick" aria-label="게시판">${Object.entries(BOARDS).map(([k,b])=>`<button class="qk qk-${k}" type="button" data-go="board/${k}"><span class="ci">${ic(b.icon)}</span><b>${b.name}</b><small>새 글 <em>${cnt(k)}</em></small></button>`).join('')}</nav>
+  ${notices.map(n=>`<button class="notice-row" type="button" data-go="post/${n.id}"><span class="nt">공지</span><span>${esc(n.title.replace('[공지] ',''))}</span></button>`).join('')}
+  <div class="gap"></div><div class="sec-h hot"><h2>실시간 인기글</h2><span class="updated">${String(TODAY.getHours()).padStart(2,'0')}:00 기준 · 좋아요·댓글 많은 순</span></div>
+  <ol class="rank">${hot.map((p,i)=>`<li><button type="button" data-go="post/${p.id}"><span class="no">${i+1}</span><span class="t"><b>${esc(p.title)}</b><small>${BOARDS[p.board].name} · ${esc(p.region)}</small><span class="cnts"><span>${ic('eye')}${p.views.toLocaleString()}</span><span>${ic('heart')}${p.likes}</span><span>${ic('chat')}${ncm(p)}</span></span></span>${p.photos[0]?`<span class="thm"><img src="${U(p.photos[0],200)}" alt="" loading="lazy">${p.photos.length>1?`<i>${p.photos.length}</i>`:''}</span>`:''}</button></li>`).join('')}</ol>
+  <div class="gap"></div><div class="sec-h"><h2>방금 올라온 글</h2><button class="more" type="button" data-go="board/lounge">라운지 전체 보기</button></div>
+  <div class="feed">${POSTS.filter(p=>vis(p)&&!p.notice&&!p.blind&&p.reports<3).sort((a,b)=>a.ago-b.ago).slice(0,4).map(feedHTML).join('')}</div>
   ${foot()}`;
   startAuto();bindSwipe();
 }
@@ -529,9 +668,14 @@ let autoT;function startAuto(){clearInterval(autoT);autoT=setInterval(()=>{if(ro
 function slideBy(d){const n=BANNERS.filter(b=>b.on).length;if(!n)return;S.slide=(S.slide+d+n)%n;const t=$('#track');if(!t)return;t.style.transform=`translateX(-${S.slide*100}%)`;$('#slno').textContent=`${S.slide+1} / ${n}`;t.querySelectorAll('.slide').forEach((s,i)=>s.tabIndex=i===S.slide?0:-1)}
 function bindSwipe(){const b=view.querySelector('.banner');if(!b)return;let x0=null;b.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});b.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){slideBy(dx<0?1:-1);startAuto()}x0=null})}
 
+function feedHTML(p){
+  const pv=p.body.replace(/\n+/g,' ').trim();
+  return `<button class="fcard" type="button" data-go="post/${p.id}"><span class="fhead"><span class="ava sm">${esc(p.author[0])}</span><span><b>${esc(p.author)}</b><small>${ago(p.ago)} · ${BOARDS[p.board].name} ${esc(p.region)}</small></span></span><strong>${esc(p.title)}</strong>${pv?`<span class="pv">${esc(pv)}</span>`:''}${p.photos[0]?`<span class="fimg"><img src="${U(p.photos[0],800)}" alt="" loading="lazy">${p.photos.length>1?`<i>1 / ${p.photos.length}</i>`:''}</span>`:''}<span class="ffoot"><span>${ic('heart')}${p.likes}</span><span>${ic('chat')}${ncm(p)}</span><span class="grow"></span><span>조회 ${p.views.toLocaleString()}</span></span></button>`;
+}
 function rowHTML(p){
   if(p.blind)return `<li><div class="prow blind"><div class="t"><b>관리자가 가린 글이에요</b><div class="meta"><span>${esc(p.author)}</span><span>${ago(p.ago)}</span></div></div></div></li>`;
-  return `<li><button class="prow ${p.notice?'pinned':''}" type="button" data-go="post/${p.id}"><span class="t">${p.notice?'<span class="meta-top"><span class="tag notice">공지</span></span>':p.cat?`<span class="meta-top"><span class="tag plain">${esc(p.region)} · ${esc(p.cat)}</span></span>`:''}<b>${esc(p.title.replace('[공지] ',''))}</b><span class="meta"><span>${esc(p.author)}</span><span>${ago(p.ago)}</span><span>${ic('eye')}${p.views.toLocaleString()}</span><span>${ic('chat')}${ncm(p)}</span><span>${ic('heart')}${p.likes}</span></span></span>${p.photos[0]?`<img src="${U(p.photos[0],240)}" alt="" loading="lazy">`:''}</button></li>`;
+  const pv=p.body.replace(/\n+/g,' ').trim();
+  return `<li><button class="prow ${p.notice?'pinned':''}" type="button" data-go="post/${p.id}"><span class="t">${p.notice?'<span class="meta-top"><span class="nt">공지</span></span>':p.cat?`<span class="meta-top"><span class="ctag">${esc(p.cat)}</span><span class="ctag rg">${esc(p.region)}</span></span>`:''}<b>${esc(p.title.replace('[공지] ',''))}</b>${pv&&!p.notice?`<span class="pv">${esc(pv)}</span>`:''}<span class="meta"><span>${esc(p.author)}</span><span>${ago(p.ago)}</span><span>조회 ${p.views.toLocaleString()}</span></span></span>${p.photos[0]?`<span class="thm"><img src="${U(p.photos[0],240)}" alt="" loading="lazy">${p.photos.length>1?`<i>${p.photos.length}</i>`:''}</span>`:''}<span class="cnts"><span>${ic('heart')}${p.likes}</span><span>${ic('chat')}${ncm(p)}</span></span></button></li>`;
 }
 
 /* ---------- 게시판 ---------- */
@@ -546,14 +690,14 @@ function vBoard(k){
   list.sort((a,b)=>a.ago-b.ago);
   const gallery=k==='lounge'&&region==='사진 갤러리';
   view.innerHTML=`<div class="board-head"><h2>${B.name}</h2><p>${B.desc}</p>
-    <div class="seg" role="group" aria-label="${k==='lounge'?'게시판':'지역'}">${B.regions.map((r,i)=>`<button type="button" data-rg="${i}" aria-pressed="${i===st.region}">${r}</button>`).join('')}</div>
+    <div class="utabs" role="group" aria-label="${k==='lounge'?'게시판':'지역'}">${B.regions.map((r,i)=>`<button type="button" data-rg="${i}" aria-pressed="${i===st.region}">${r}</button>`).join('')}</div>
     ${B.cats?`<div class="chips" role="group" aria-label="분류">${B.cats.map((c,i)=>`<button class="chip" type="button" data-ct="${i}" aria-pressed="${i===st.cat}">${c}</button>`).join('')}</div>`:''}
   </div>
   ${gallery?(list.length?`<div class="gallery">${list.map(p=>`<button type="button" data-go="post/${p.id}" aria-label="${esc(p.title)}"><img src="${U(p.photos[0],400)}" alt="" loading="lazy">${p.photos.length>1?`<span class="cnt">${p.photos.length}</span>`:''}</button>`).join('')}</div>`:emptyHTML()):
   `<ul class="list">${pinned.map(rowHTML).join('')}${list.map(rowHTML).join('')}</ul>${list.length?'':emptyHTML()}`}
   <div style="height:96px"></div>`;
   addFab(k,region,cat);
-  view.querySelectorAll('.seg,.chips').forEach(g=>{const on=g.querySelector('[aria-pressed="true"]');if(on&&on.offsetLeft+on.offsetWidth>g.clientWidth)g.scrollLeft=on.offsetLeft-16});
+  view.querySelectorAll('.utabs,.chips').forEach(g=>{const on=g.querySelector('[aria-pressed="true"]');if(on&&on.offsetLeft+on.offsetWidth>g.clientWidth)g.scrollLeft=on.offsetLeft-16});
   view.querySelectorAll('[data-rg]').forEach(b=>b.onclick=()=>{st.region=+b.dataset.rg;vBoard(k)});
   view.querySelectorAll('[data-ct]').forEach(b=>b.onclick=()=>{st.cat=+b.dataset.ct;vBoard(k)});
 }
@@ -570,13 +714,13 @@ function vPost(id){
   const me=S.user&&S.user.nick;
   const cm=c=>`<div class="cmt"><span class="ava sm">${esc(c.author[0])}</span><div class="c"><b>${esc(c.author)}${c.author===p.author?'<em>글쓴이</em>':''}</b>${c.blind?'<p style="color:var(--mut)">관리자가 가린 댓글이에요</p>':`<p>${esc(c.text)}</p>`}<small>${ago(c.ago)}</small>${c.replyable!==false?`<button class="rbtn" type="button" data-reply="${c.id}" data-name="${esc(c.author)}">답글 쓰기</button>`:''}</div></div>`;
   view.innerHTML=`<article class="post">
-    <div class="where">${p.notice?'<span class="tag notice">공지</span>':''}<span class="tag plain">${esc(boardLabel(p))}</span></div>
+    <div class="where">${p.notice?'<span class="nt">공지</span>':''}<span class="crumb">${esc(BOARDS[p.board].name)} ${ic('right')} ${esc(p.region)}${p.cat?' · '+esc(p.cat):''}</span></div>
     <h2>${esc(p.title.replace('[공지] ',''))}</h2>
-    <div class="author"><span class="ava">${esc(p.author[0])}</span><div><b>${esc(p.author)}</b><small>${ago(p.ago)} · 조회 ${p.views.toLocaleString()}</small></div></div>
+    <div class="author"><span class="ava">${esc(p.author[0])}</span><div><b>${esc(p.author)}</b><small>${ago(p.ago)} · 조회 ${p.views.toLocaleString()}</small></div><span class="grow"></span><span class="ccount">${ic('chat')}댓글 ${ncm(p)}</span></div>
     ${p.blind?'<div class="blindbox">관리자가 가린 글이에요. 이용 규칙에 맞지 않는 내용이 있었어요.</div>':`
     ${p.body?`<div class="body">${esc(p.body)}</div>`:''}
     ${p.photos.length?`<div class="photos">${p.photos.map((ph,i)=>`<button type="button" data-view="${ph}" aria-label="사진 ${i+1} 크게 보기"><img src="${U(ph,900)}" alt="${esc(p.title)} 사진 ${i+1}" ${i?'loading="lazy"':''}></button>`).join('')}</div>`:''}
-    <div class="actions"><button class="like" type="button" data-like aria-pressed="${p.liked}">${ic('heart')}좋아요 <span>${p.likes}</span></button><button class="btn" type="button" data-report>신고</button></div>`}
+    <div class="actions"><button class="like" type="button" data-like aria-pressed="${p.liked}">${ic('heart')}좋아요 <span>${p.likes}</span></button><span class="grow"></span><button class="rep" type="button" data-report>신고</button></div>`}
   </article>
   <section class="comments" aria-label="댓글"><h3>댓글 ${ncm(p)}</h3>
     ${p.comments.length?p.comments.map(c=>cm(c)+c.replies.map(r=>`<div class="reply">${cm({...r,replyable:false})}</div>`).join('')).join(''):'<p style="color:var(--mut);margin:8px 0">첫 댓글을 남겨 보세요.</p>'}
