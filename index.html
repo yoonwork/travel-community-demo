@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>놀판 (예시) — 여행 커뮤니티 제안용 데모</title>
+<meta name="description" content="해외여행·국내여행·여행 라운지 게시판, 성인 확인 가입, 관리자 화면까지 눌러 볼 수 있는 제안용 데모예요. 실제 서비스가 아니에요.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231D5FD8'/%3E%3Ctext x='16' y='22' font-size='17' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'%3E놀%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style id="tokens">
+:root{
+  color-scheme: light;
+  --brand:#1D5FD8; --brand-hover:#174FB8; --brand-press:#123F94; --brand-text:#174FB8;
+  --brand-tint:#EDF3FF; --brand-tint-2:#D6E3FF; --ring:0 0 0 3px rgba(29,95,216,.28); --on-brand:#FFFFFF;
+  --bg:#F2F4F7; --card:#FFFFFF; --soft:#F7F8FA; --track:#ECEFF3; --line:#DDE1E6; --line-2:#E8EBEF;
+  --ink:#141A22; --ink-2:#3D4754; --mut:#56606D; --mut-2:#9AA3AE;
+  --ok:#127A4F; --ok-bg:#E3F6ED; --ok-dot:#1FA971;
+  --warn:#7A5600; --warn-bg:#FFF3D4; --warn-dot:#F2B01E;
+  --bad:#BF2930; --bad-bg:#FFE3E4; --bad-dot:#E5484D;
+  --neu:#4E5968; --neu-bg:#F0F2F5; --neu-dot:#8B95A1;
+  --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  --r-sm:8px; --r-md:12px; --r-lg:20px; --r-xl:28px; --r-pill:999px;
+  --sh-pop:0 2px 6px rgba(16,24,40,.06),0 12px 32px rgba(16,24,40,.14);
+  --tap:48px;
+}
+</style>
+<style>
+/* 글자 크기: 보통 17 / 크게 19 / 아주 크게 21 — 모든 글자를 rem으로 써서 한 번에 커져요 */
+html{font-size:17px;-webkit-text-size-adjust:100%}
+html[data-fs="l"]{font-size:19px}
+html[data-fs="xl"]{font-size:21px}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);color:var(--ink);background:#E6E9EE;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%}
+:focus-visible{outline:none;box-shadow:var(--ring);border-radius:var(--r-sm)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* 무대: 휴대폰은 꽉 차게, PC는 가운데 휴대폰 폭 + 왼쪽 안내 */
+.stage{display:flex;justify-content:center;align-items:flex-start;gap:40px}
+.side{display:none}
+.phone{position:relative;width:100%;max-width:480px;height:100vh;height:100dvh;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+@media (min-width:900px){
+  .stage{padding:24px}
+  .phone{max-width:430px;height:calc(100vh - 48px);border-radius:32px;border:1px solid #D3D8DF;box-shadow:0 20px 60px rgba(16,24,40,.12)}
+  .phone.wide{max-width:920px}
+  .side{display:block;width:340px;flex:none;position:sticky;top:24px}
+}
+
+/* 데모 띠 */
+.demobar{flex:none;display:flex;align-items:center;gap:8px;min-height:40px;padding:4px 8px 4px 16px;background:#1E2530;color:#fff;font-size:14px;white-space:nowrap}
+.demobar span{overflow:hidden;text-overflow:ellipsis}
+.demobar b{font-weight:600}
+.demobar span{flex:1;color:#C9D0DA}
+.demobar button{min-height:36px;padding:0 12px;border:1px solid #4A5464;border-radius:var(--r-pill);background:transparent;color:#fff;font-size:14px}
+@media (min-width:900px){.demobar button{display:none}}
+
+/* 앱 머리 */
+.appbar{flex:none;display:flex;align-items:center;gap:4px;height:60px;padding:0 8px 0 16px;background:var(--card);border-bottom:1px solid var(--line-2)}
+.appbar.sub{padding-left:4px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.3rem;letter-spacing:-.02em;background:none;border:0;padding:0;min-height:var(--tap)}
+.logo i{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:var(--brand);color:#fff;font-style:normal;font-size:1rem}
+.logo small{font-size:.76rem;font-weight:500;color:var(--mut)}
+.appbar h1{flex:1;margin:0;font-size:1.18rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.appbar .grow{flex:1}
+.ibtn{display:grid;place-items:center;width:var(--tap);height:var(--tap);border:0;border-radius:var(--r-pill);background:transparent;color:var(--ink)}
+.ibtn:hover{background:var(--soft)}
+.fsbtn{min-height:40px;padding:0 12px;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--card);font-weight:600;font-size:.88rem}
+
+.scroller{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scroll-behavior:auto}
+.pad{padding:16px}
+
+/* 하단 탭 */
+.tabbar{flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:var(--card);border-top:1px solid var(--line-2);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:64px;border:0;background:none;color:var(--mut);font-size:.82rem;font-weight:500}
+.tabbar button[aria-current="page"]{color:var(--brand-text);font-weight:700}
+
+/* 공통 부품 */
+.card{background:var(--card);border:1px solid var(--line-2);border-radius:var(--r-lg)}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:24px 16px 12px}
+.sec-h h2{margin:0;font-size:1.18rem;font-weight:700}
+.sec-h .more{min-height:var(--tap);padding:0 4px;border:0;background:none;color:var(--brand-text);font-weight:600;font-size:.94rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:var(--tap);padding:0 20px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--card);font-weight:600;font-size:1rem}
+.btn:hover{background:var(--soft)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.primary:hover{background:var(--brand-hover)}
+.btn.primary:active{background:var(--brand-press)}
+.btn.primary:disabled{background:#B9C7E3;border-color:#B9C7E3;cursor:not-allowed}
+.btn.danger{color:var(--bad);border-color:#F2C4C6}
+.btn.block{width:100%;min-height:56px;border-radius:var(--r-md);font-size:1.06rem}
+.btn.sm{min-height:44px;padding:0 14px;font-size:.9rem}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:44px;padding:0 16px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--card);font-size:.94rem;font-weight:500;color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:var(--r-pill);background:var(--neu-bg);color:var(--neu);font-size:.8rem;font-weight:600;white-space:nowrap}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--neu-dot)}
+.tag.ok{background:var(--ok-bg);color:var(--ok)}.tag.ok::before{background:var(--ok-dot)}
+.tag.warn{background:var(--warn-bg);color:var(--warn)}.tag.warn::before{background:var(--warn-dot)}
+.tag.bad{background:var(--bad-bg);color:var(--bad)}.tag.bad::before{background:var(--bad-dot)}
+.tag.plain::before{display:none}
+.tag.notice{background:var(--brand-tint);color:var(--brand-text)}.tag.notice::before{display:none}
+
+/* 홈: 배너 */
+.banner{position:relative;margin:16px 16px 0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/10;background:#C9D2DC;touch-action:pan-y}
+.banner .track{display:flex;height:100%;transition:transform .35s ease}
+.banner .slide{position:relative;flex:0 0 100%;height:100%;border:0;padding:0;text-align:left;color:#fff;background:#56606D}
+.banner .slide img{width:100%;height:100%;object-fit:cover}
+.banner .slide .txt{position:absolute;left:0;right:0;bottom:0;padding:48px 20px 20px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.62))}
+.banner .slide strong{display:block;font-size:1.35rem;line-height:1.3;font-weight:700}
+.banner .slide small{display:block;margin-top:4px;font-size:.94rem;color:#EEF1F5}
+.banner .count{position:absolute;right:12px;top:12px;display:flex;align-items:center;gap:2px;height:36px;padding:0 4px;border-radius:var(--r-pill);background:rgba(20,26,34,.62);color:#fff;font-size:.82rem;font-variant-numeric:tabular-nums}
+.banner .count button{display:grid;place-items:center;width:32px;height:32px;border:0;background:none;color:#fff;border-radius:50%}
+.banner .count .ic{width:18px;height:18px}
+
+/* 홈: 세 게시판 큰 탭 */
+.bigtabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 16px 0}
+.bigtab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:96px;padding:12px 4px;border-radius:var(--r-lg);border:1px solid var(--line-2);background:var(--card);font-weight:700;font-size:1.06rem}
+.bigtab .ic{width:28px;height:28px;color:var(--brand)}
+.bigtab small{font-weight:500;font-size:.8rem;color:var(--mut)}
+.bigtab:hover{border-color:var(--brand-tint-2)}
+
+.notice-row{display:flex;align-items:center;gap:12px;margin:12px 16px 0;padding:0 16px;min-height:56px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line-2);width:calc(100% - 32px);text-align:left}
+.notice-row span:last-child{flex:1;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* 실시간 인기글 */
+.rank{margin:0 16px;padding:4px 0;list-style:none;background:var(--card);border:1px solid var(--line-2);border-radius:var(--r-lg)}
+.rank li+li{border-top:1px solid var(--line-2)}
+.rank button{display:flex;align-items:center;gap:12px;width:100%;min-height:72px;padding:12px 16px;border:0;background:none;text-align:left}
+.rank .no{width:24px;flex:none;text-align:center;font-weight:700;font-size:1.06rem;color:var(--mut);font-variant-numeric:tabular-nums}
+.rank li:first-child .no{color:var(--brand-text)}
+.rank .t{flex:1;min-width:0}
+.rank .t b{display:block;font-weight:600;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rank .t small{display:block;margin-top:2px;color:var(--mut);font-size:.88rem}
+.rank img{width:64px;height:64px;border-radius:var(--r-md);object-fit:cover;flex:none}
+.updated{font-size:.82rem;color:var(--mut);font-weight:500}
+
+/* 게시판 */
+.board-head{background:var(--card);border-bottom:1px solid var(--line-2);padding:16px 0 12px}
+.board-head h2{margin:0 16px;font-size:1.41rem;font-weight:700;letter-spacing:-.01em}
+.board-head p{margin:4px 16px 12px;color:var(--mut);font-size:.94rem}
+.seg{display:flex;gap:4px;margin:0 16px 12px;padding:4px;border-radius:var(--r-pill);background:var(--track);overflow-x:auto;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg button{flex:1 0 auto;min-height:44px;padding:0 14px;border:0;border-radius:var(--r-pill);background:none;font-weight:600;font-size:.94rem;color:var(--ink-2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(16,24,40,.12)}
+.list{list-style:none;margin:0;padding:0;background:var(--card)}
+.list>li{border-bottom:1px solid var(--line-2)}
+.prow{display:flex;gap:12px;width:100%;padding:16px;border:0;background:none;text-align:left;min-height:88px}
+.prow:hover{background:var(--soft)}
+.prow .t{flex:1;min-width:0}
+.prow .meta-top{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+.prow b{display:block;font-weight:600;font-size:1.06rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prow .meta{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:6px;color:var(--mut);font-size:.88rem}
+.prow .meta span{display:inline-flex;align-items:center;gap:3px}
+.prow .meta .ic{width:16px;height:16px}
+.prow img{width:84px;height:84px;border-radius:var(--r-md);object-fit:cover;flex:none}
+.prow.pinned{background:#F8FAFF}
+.prow.blind b{color:var(--mut);font-weight:500}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--card)}
+.gallery button{position:relative;padding:0;border:0;aspect-ratio:1;background:#DDE1E6;overflow:hidden}
+.gallery img{width:100%;height:100%;object-fit:cover}
+.gallery .cnt{position:absolute;right:6px;top:6px;padding:0 6px;border-radius:6px;background:rgba(0,0,0,.6);color:#fff;font-size:.76rem;font-weight:600}
+.fab[hidden]{display:none}
+.fab{position:absolute;right:16px;bottom:80px;z-index:5;display:flex;align-items:center;gap:6px;min-height:56px;padding:0 22px 0 18px;border:0;border-radius:var(--r-pill);background:var(--brand);color:#fff;font-weight:700;font-size:1.06rem;box-shadow:var(--sh-pop)}
+.fab:hover{background:var(--brand-hover)}
+.empty{padding:48px 24px;text-align:center;color:var(--mut)}
+.empty strong{display:block;color:var(--ink);font-size:1.06rem;margin-bottom:4px}
+.empty .btn{margin-top:16px}
+
+/* 글 상세 */
+.post{background:var(--card);padding:20px 16px 8px}
+.post .where{display:flex;gap:6px;flex-wrap:wrap}
+.post h2{margin:12px 0 0;font-size:1.41rem;line-height:1.4;font-weight:700;letter-spacing:-.01em}
+.author{display:flex;align-items:center;gap:12px;margin:16px 0;padding-bottom:16px;border-bottom:1px solid var(--line-2)}
+.ava{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--brand-tint);color:var(--brand-text);font-weight:700;flex:none}
+.ava.sm{width:36px;height:36px;font-size:.88rem}
+.author b{display:block;font-weight:600}
+.author small{color:var(--mut);font-size:.88rem}
+.body{font-size:1.06rem;line-height:1.75;white-space:pre-line}
+.photos{display:grid;gap:8px;margin:16px 0}
+.photos button{padding:0;border:0;border-radius:var(--r-md);overflow:hidden;background:#DDE1E6}
+.photos img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.actions{display:flex;gap:8px;padding:16px 0}
+.like{display:inline-flex;align-items:center;gap:8px;min-height:var(--tap);padding:0 18px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--card);font-weight:600}
+.like[aria-pressed="true"]{border-color:#F2C4C6;background:var(--bad-bg);color:var(--bad)}
+.like[aria-pressed="true"] .ic{fill:var(--bad-dot);stroke:var(--bad-dot)}
+.comments{background:var(--card);margin-top:8px;padding:16px}
+.comments h3{margin:0 0 8px;font-size:1.12rem}
+.cmt{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line-2)}
+.cmt:first-of-type{border-top:0}
+.cmt .c{flex:1;min-width:0}
+.cmt .c b{font-weight:600;font-size:.94rem}
+.cmt .c b em{font-style:normal;margin-left:6px;padding:0 6px;border-radius:6px;background:var(--brand-tint);color:var(--brand-text);font-size:.76rem}
+.cmt .c p{margin:2px 0 4px;font-size:1rem;line-height:1.6}
+.cmt .c small{color:var(--mut);font-size:.88rem}
+.cmt .c .rbtn{min-height:40px;padding:0 8px;margin-left:4px;border:0;background:none;color:var(--ink-2);font-weight:600;font-size:.88rem}
+.reply{margin-left:48px;padding-left:12px;border-left:2px solid var(--line-2)}
+.cbox{margin-top:12px;padding:12px;border-radius:var(--r-md);background:var(--soft);border:1px solid var(--line-2)}
+.cbox .to{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:.88rem;color:var(--brand-text);font-weight:600}
+.cbox .to button{min-height:36px;border:0;background:none;color:var(--mut);font-size:.88rem}
+.cbox textarea{width:100%;min-height:88px;padding:12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);font-size:1rem;resize:vertical}
+.cbox .row{display:flex;justify-content:flex-end;margin-top:8px}
+.blindbox{margin:16px 0;padding:24px 16px;border-radius:var(--r-md);background:var(--soft);color:var(--mut);text-align:center}
+
+/* 폼 */
+.field{margin-bottom:20px}
+.field label,.field .lab{display:block;margin-bottom:8px;font-weight:600}
+.field .req{color:var(--bad)}
+.inp{width:100%;min-height:52px;padding:0 14px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);font-size:1rem}
+textarea.inp{min-height:200px;padding:14px;line-height:1.7;resize:vertical}
+select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2356606D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:20px;padding-right:40px}
+.inp:focus{outline:none;border-color:var(--brand);box-shadow:var(--ring)}
+.inp.err{border-color:var(--bad)}
+.help{margin-top:6px;font-size:.88rem;color:var(--mut)}
+.errmsg{margin-top:6px;font-size:.9rem;color:var(--bad);font-weight:500}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.thumbs .th{position:relative;aspect-ratio:1;border-radius:var(--r-md);overflow:hidden;background:#DDE1E6}
+.thumbs .th img{width:100%;height:100%;object-fit:cover}
+.thumbs .th button{position:absolute;right:4px;top:4px;display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:50%;background:rgba(20,26,34,.7);color:#fff}
+.thumbs .th button .ic{width:18px;height:18px}
+.thumbs .th .first{position:absolute;left:4px;bottom:4px;padding:0 6px;border-radius:6px;background:rgba(20,26,34,.7);color:#fff;font-size:.72rem}
+.thumbs label.add{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;aspect-ratio:1;border:1.5px dashed var(--line);border-radius:var(--r-md);background:var(--card);color:var(--mut);font-size:.82rem;cursor:pointer;margin:0;font-weight:500}
+.checks{border:1px solid var(--line-2);border-radius:var(--r-lg);background:var(--card);overflow:hidden}
+.ck{display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;cursor:pointer}
+.ck+.ck{border-top:1px solid var(--line-2)}
+.ck input{width:24px;height:24px;accent-color:var(--brand);flex:none}
+.ck span{flex:1}
+.ck.all{background:var(--soft);font-weight:700}
+.ck small{color:var(--mut)}
+.ck .view{min-height:40px;border:0;background:none;color:var(--mut);font-size:.88rem;text-decoration:underline}
+
+/* 가입 */
+.join-hero{padding:32px 20px 8px}
+.join-hero h2{margin:0;font-size:1.65rem;line-height:1.35;letter-spacing:-.02em}
+.join-hero p{margin:8px 0 0;color:var(--ink-2)}
+.social{display:grid;gap:12px;padding:24px 20px}
+.sbtn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;border-radius:var(--r-md);border:0;font-weight:700;font-size:1.06rem}
+.sbtn.kakao{background:#FEE500;color:#191600}
+.sbtn.naver{background:#03C75A;color:#fff}
+.sbtn.mail{background:var(--card);border:1px solid var(--line);color:var(--ink)}
+.sbtn .mk{display:grid;place-items:center;width:24px;height:24px;font-weight:800;font-size:.9rem}
+.steps{display:flex;gap:6px;padding:16px 20px 0}
+.steps i{flex:1;height:6px;border-radius:3px;background:var(--track)}
+.steps i.on{background:var(--brand)}
+.note{margin:0 20px;padding:14px 16px;border-radius:var(--r-md);background:var(--soft);border:1px solid var(--line-2);color:var(--ink-2);font-size:.9rem}
+.note b{color:var(--ink)}
+.birth{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:8px}
+.bottom-cta{position:sticky;bottom:0;padding:12px 20px 16px;background:linear-gradient(180deg,rgba(242,244,247,0),var(--bg) 24%)}
+.blocked{padding:48px 24px;text-align:center}
+.blocked .mark{display:grid;place-items:center;width:72px;height:72px;margin:0 auto 16px;border-radius:50%;background:var(--bad-bg);color:var(--bad);font-weight:800;font-size:1.3rem}
+.blocked h2{margin:0;font-size:1.41rem}
+.blocked p{color:var(--ink-2)}
+
+/* 내 정보 */
+.profile{display:flex;align-items:center;gap:16px;margin:16px;padding:20px;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line-2)}
+.profile .ava{width:64px;height:64px;font-size:1.3rem}
+.profile b{display:block;font-size:1.24rem}
+.profile small{color:var(--mut);font-size:.88rem}
+.menu{margin:0 16px 16px;padding:0;list-style:none;background:var(--card);border:1px solid var(--line-2);border-radius:var(--r-lg);overflow:hidden}
+.menu li+li{border-top:1px solid var(--line-2)}
+.menu button,.menu .rowx{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;padding:0 16px;border:0;background:none;text-align:left;font-size:1rem}
+.menu button span{flex:1}
+.menu .ic{color:var(--mut)}
+.menu .danger span{color:var(--bad)}
+.fsseg{display:flex;gap:4px;padding:4px;border-radius:var(--r-pill);background:var(--track)}
+.fsseg button{min-height:40px;padding:0 12px;border:0;border-radius:var(--r-pill);background:none;font-weight:600;color:var(--ink-2)}
+.fsseg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(16,24,40,.12)}
+
+/* 관리자 */
+.adm-top{padding:16px;background:var(--card);border-bottom:1px solid var(--line-2)}
+.adm-top h2{margin:0 0 4px;font-size:1.3rem}
+.adm-top p{margin:0 0 12px;color:var(--mut);font-size:.9rem}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.kpi{padding:12px 14px;border-radius:var(--r-md);background:var(--soft);border:1px solid var(--line-2)}
+.kpi small{display:block;color:var(--mut);font-size:.82rem}
+.kpi b{font-size:1.3rem;font-variant-numeric:tabular-nums}
+.kpi.hot{background:var(--brand-tint);border-color:var(--brand-tint-2)}
+.kpi.hot b{color:var(--brand-text)}
+@media (min-width:900px){.phone.wide .kpis{grid-template-columns:repeat(4,1fr)}}
+.alist{list-style:none;margin:0;padding:0}
+.arow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:14px 16px;background:var(--card);border-bottom:1px solid var(--line-2)}
+.arow .t{flex:1 1 200px;min-width:0}
+.arow .t b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arow .t small{color:var(--mut);font-size:.88rem}
+.arow .acts{display:flex;gap:6px;flex-wrap:wrap}
+.arow img{width:72px;height:48px;border-radius:var(--r-sm);object-fit:cover;flex:none}
+.arow.off{opacity:.62}
+.arow .ord{display:flex;flex-direction:column;gap:2px}
+.arow .ord button{width:40px;height:32px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--card);display:grid;place-items:center}
+.arow .ord button:disabled{opacity:.35}
+.arow .ord .ic{width:18px;height:18px}
+.arow .num{width:28px;text-align:center;font-weight:700;color:var(--mut);font-variant-numeric:tabular-nums}
+.toggle{position:relative;width:52px;height:32px;border-radius:16px;border:0;background:#C6CCD4;flex:none}
+.toggle::after{content:"";position:absolute;left:3px;top:3px;width:26px;height:26px;border-radius:50%;background:#fff;transition:transform .15s}
+.toggle[aria-checked="true"]{background:var(--brand)}
+.toggle[aria-checked="true"]::after{transform:translateX(20px)}
+.search-in{display:flex;gap:8px;padding:12px 16px;background:var(--card);border-bottom:1px solid var(--line-2)}
+.search-in .inp{flex:1;border-radius:var(--r-pill);padding-left:18px}
+
+/* 겹침 층: 시트·토스트·사진 보기 */
+.layer{position:absolute;inset:0;z-index:20;pointer-events:none}
+.dim{position:absolute;inset:0;background:rgba(20,26,34,.5);pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;max-height:90%;overflow:auto;padding:12px 20px calc(20px + env(safe-area-inset-bottom));border-radius:var(--r-xl) var(--r-xl) 0 0;background:var(--card);pointer-events:auto}
+.sheet::before{content:"";display:block;width:36px;height:4px;margin:0 auto 16px;border-radius:2px;background:var(--line)}
+.sheet h3{margin:0 0 8px;font-size:1.24rem}
+.sheet p{margin:0 0 16px;color:var(--ink-2)}
+.sheet .btns{display:grid;grid-template-columns:1fr 1.4fr;gap:8px;margin-top:8px}
+.sheet .btns.one{grid-template-columns:1fr}
+.toast{position:absolute;left:16px;right:16px;bottom:84px;padding:14px 18px;border-radius:var(--r-md);background:#1E2530;color:#fff;font-weight:500;box-shadow:var(--sh-pop);pointer-events:auto}
+.viewer{position:absolute;inset:0;background:#0E1217;display:flex;align-items:center;justify-content:center;pointer-events:auto}
+.viewer img{max-height:100%;width:100%;object-fit:contain}
+.viewer .ibtn{position:absolute;right:8px;top:8px;color:#fff;background:rgba(255,255,255,.12)}
+
+/* PC 왼쪽 안내 */
+.side h1{margin:0;font-size:1.5rem;letter-spacing:-.02em;line-height:1.3}
+.side p{margin:8px 0 0;color:var(--ink-2);font-size:.94rem}
+.side .box{margin-top:16px;padding:12px 20px;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line-2)}
+.side .box h2{margin:0 0 8px;font-size:1rem}
+.side .go{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:44px;padding:0 4px;border:0;border-bottom:1px solid var(--line-2);background:none;text-align:left;font-size:.94rem}
+.side .go:last-child{border-bottom:0}
+.side .go small{color:var(--mut);font-size:.8rem}
+.side .credit{margin-top:12px;font-size:.8rem;color:var(--mut)}
+.foot{padding:24px 16px 32px;color:var(--mut);font-size:.82rem;line-height:1.6}
+mark{background:#FFF0B3;color:inherit;border-radius:3px;padding:0 1px}
+</style>
+</head>
+<body>
+<div class="stage">
+  <aside class="side" aria-label="데모 안내">
+    <h1>놀판 (예시)<br>여행 커뮤니티 데모</h1>
+    <p>공고를 보고 만든 제안용 데모예요. 오른쪽 화면을 직접 눌러 보세요. 바꾼 내용은 새로고침하면 처음으로 돌아가요.</p>
+    <div class="box">
+      <h2>화면 바로가기</h2>
+      <div id="sideNav"></div>
+    </div>
+    <div class="box">
+      <h2>글자 크기</h2>
+      <div class="fsseg" id="sideFs"></div>
+      <p class="credit">사진: Unsplash 무료 라이선스 이미지. 글·닉네임·배너 문구는 모두 지어낸 예시예요.</p>
+    </div>
+  </aside>
+
+  <div class="phone" id="phone">
+    <div class="demobar" role="note"><b>제안용 데모 · 예시</b><span>실제 서비스가 아니에요</span><button type="button" id="mNav">화면 목록</button></div>
+    <header class="appbar" id="appbar"></header>
+    <main class="scroller" id="view" tabindex="-1"></main>
+    <nav class="tabbar" id="tabbar" aria-label="주 메뉴"></nav>
+    <button class="fab" id="fab" type="button" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>글쓰기</button>
+    <div class="layer" id="layer" aria-live="polite"></div>
+  </div>
+</div>
+
+<script>
+/* ---------- 아이콘 (선 1.8 한 세트) ---------- */
+const P={
+ home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+ globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/>',
+ pin:'<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+ chat:'<path d="M4 5h16v11H9l-5 4z"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+ search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+ back:'<path d="M15 5 8 12l7 7"/>',
+ heart:'<path d="M12 20s-7.5-4.6-9-9.3C2 7.4 4.2 5 7 5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 2.8 0 5 2.4 4 5.7C19.5 15.4 12 20 12 20z"/>',
+ eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+ image:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-8 8"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ x:'<path d="M6 6l12 12M18 6 6 18"/>',
+ right:'<path d="m9 5 7 7-7 7"/>',
+ left:'<path d="m15 5-7 7 7 7"/>',
+ up:'<path d="M12 19V5M6 11l6-6 6 6"/>',
+ down:'<path d="M12 5v14M6 13l6 6 6-6"/>',
+ pen:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',
+ shield:'<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/>',
+ doc:'<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>',
+ out:'<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>',
+ bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/>',
+ grid:'<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/>'
+};
+const ic=(n,c='')=>`<svg class="ic ${c}" viewBox="0 0 24 24" aria-hidden="true">${P[n]}</svg>`;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const U=(id,w=800)=>/^(blob|data):/.test(id)?id:`https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
+
+/* ---------- 사진 (Unsplash, 모두 200 응답 확인) ---------- */
+const IMG={gold:'1559592413-7cec4d0cae2b',halong:'1528127269322-539801943592',pool:'1566073771259-6a8506099945',poolnight:'1542314831-068cd1dbfeeb',resort:'1571896349842-33c89424de2d',tropic:'1520250497591-112f2f40a3f4',beach:'1507525428034-b723cf961d3e',lagoon:'1534008897995-27a23e859048',elnido:'1518509562904-e7ef99cdcc86',boats:'1552465011-b4e21bf6e79a',seapool:'1540541338287-41700207dee6',deck:'1582719508461-905c673771fd',food:'1504674900247-0877df9cc836',dining:'1414235077428-338989a2e8c0',rest:'1517248135467-4c7edcad34c4',kfood:'1498654896293-37aacf113fd9',tteok:'1580651315530-69c8e0026377',hanok:'1548115184-bc6544d06a58',stream:'1601621915196-2621bfb0cd6e',seoul:'1546874177-9e664107314e',mount:'1506905925346-21bda4d32df4',valley:'1469474968028-56623f02e42e',airport:'1464037866556-6812c9d1c72e',wing:'1436491865332-7a61a109cc05',map:'1488646953014-85cb44e25828',city:'1583417319070-4a69db38a482',karst:'1557750255-c76072a7aad1',bowl:'1547592180-85f173990554',street:'1555921015-5532091f6026'};
+
+/* ---------- 게시판 구조 ---------- */
+const BOARDS={
+ abroad:{name:'해외여행',desc:'숙소·맛집·명소·교통 정보를 지역별로 모아요',icon:'globe',regions:['전체','다낭·호이안','마카오','필리핀'],cats:['전체','숙소','맛집','명소','교통','후기']},
+ domestic:{name:'국내여행',desc:'가까운 명소와 맛집, 가는 길을 나눠요',icon:'pin',regions:['전체','강원·정선','서울','부산','제주'],cats:['전체','숙소','맛집','명소','교통','후기']},
+ lounge:{name:'여행 라운지',desc:'여행 이야기와 사는 이야기를 편하게 나눠요',icon:'chat',regions:['자유수다','여행 후기','질문·답변','사람들 이야기','사진 갤러리'],cats:null}
+};
+
+/* ---------- 예시 데이터 (모두 지어낸 내용) ---------- */
+let seq=100;
+const C=(author,text,ago,replies=[])=>({id:++seq,author,text,ago,replies,blind:false,reports:0});
+let POSTS=[
+ {id:1,board:'lounge',region:'자유수다',cat:'',notice:true,title:'[공지] 놀판 이용 규칙 — 꼭 읽어 주세요',author:'놀판지기',ago:4320,views:2841,likes:52,photos:[],body:'반갑습니다. 놀판은 만 19세 이상 회원이 여행 정보와 일상을 나누는 곳이에요.\n\n1. 서로 존댓말을 써 주세요.\n2. 광고·홍보 글, 개인 연락처를 남기는 글은 안내 없이 가려요.\n3. 사진은 직접 찍은 것만 올려 주세요.\n4. 불편한 글은 글 아래 \'신고\'로 알려 주세요.\n\n즐거운 여행 이야기 기다릴게요.',comments:[]},
+ {id:2,board:'abroad',region:'다낭·호이안',cat:'명소',title:'바나힐 골든브릿지, 오전 8시에 가니 한산했어요',author:'은퇴후여행',ago:38,views:1204,likes:87,photos:[IMG.gold,IMG.halong],body:'아내와 둘이 다낭 4박 다녀왔어요. 바나힐은 오후에 사람이 정말 많다고 해서 첫 케이블카 시간에 맞춰 갔습니다.\n\n- 시내에서 택시로 40분 정도 걸렸어요.\n- 정상은 시내보다 꽤 쌀쌀해서 얇은 겉옷이 있으면 좋아요.\n- 골든브릿지 사진은 9시 전에 찍어야 사람 없이 나와요.\n\n무릎이 안 좋으신 분은 계단 대신 안쪽 엘리베이터를 쓰세요.',comments:[C('호이안등불','정보 감사합니다. 다음 달에 부모님 모시고 가는데 겉옷 꼭 챙길게요.',30,[C('은퇴후여행','네, 정상은 생각보다 추워요. 즐거운 여행 되세요.',22)]),C('부산갈매기55','택시는 어떤 앱으로 부르셨나요?',18,[C('은퇴후여행','호텔 프런트에 부탁드렸어요. 왕복으로 잡으니 편했습니다.',12)])]},
+ {id:3,board:'abroad',region:'다낭·호이안',cat:'숙소',title:'미케 해변 쪽 리조트 3곳 묵어 보고 비교해요',author:'호이안등불',ago:95,views:968,likes:61,photos:[IMG.pool,IMG.tropic,IMG.seapool],body:'일주일 동안 숙소를 세 번 옮겨 봤어요. 고르실 때 참고하세요.\n\n첫째 집: 수영장이 넓고 조용해요. 아침 식사 종류가 많아요.\n둘째 집: 해변까지 걸어서 2분. 방은 조금 좁아요.\n셋째 집: 시내 한시장까지 가까워 저녁 산책하기 좋아요.\n\n엘리베이터 위치, 욕실 미끄럼 방지 매트가 있는지 미리 물어보면 좋아요.',comments:[C('산책하는김씨','이런 비교 글 정말 좋아요. 저장해 둘게요.',60)]},
+ {id:4,board:'abroad',region:'다낭·호이안',cat:'맛집',title:'호이안 올드타운 저녁, 반미와 화이트로즈 맛집',author:'사진찍는박선생',ago:180,views:744,likes:43,photos:[IMG.food,IMG.bowl],body:'호이안 등불 켜지는 시간에 맞춰 저녁을 먹었어요. 반미는 줄이 길어도 금방 빠집니다. 화이트로즈는 만두처럼 부드러워서 어르신들도 좋아하셨어요.\n\n현금을 조금 챙기세요. 작은 가게는 카드가 안 되는 곳이 있었어요.',comments:[]},
+ {id:5,board:'abroad',region:'마카오',cat:'명소',title:'성 바울 성당 유적부터 세나도 광장까지 걷는 길',author:'마카오에그타르트',ago:240,views:655,likes:38,photos:[IMG.city,IMG.street],body:'홍콩에서 페리로 들어가 하루 걷기 여행을 했어요.\n\n세나도 광장 → 성 도미니크 성당 → 성 바울 성당 유적 순서로 걸으면 오르막이 덜해요. 천천히 걸어도 2시간이면 충분합니다.\n\n돌길이 미끄러우니 밑창이 두꺼운 운동화를 추천해요.',comments:[C('세부바다','다음 주에 가는데 순서 그대로 따라가 볼게요.',200)]},
+ {id:6,board:'abroad',region:'마카오',cat:'맛집',title:'타이파 빌리지 에그타르트, 두 집 먹어 봤어요',author:'마카오에그타르트',ago:610,views:812,likes:57,photos:[IMG.dining],body:'갓 구운 걸 바로 먹는 게 제일 맛있어요. 한 집은 겉이 바삭하고, 다른 집은 속이 더 촉촉했어요. 오후 3시쯤이 덜 붐볐습니다.',comments:[]},
+ {id:7,board:'abroad',region:'마카오',cat:'교통',title:'홍콩 공항에서 마카오 가는 법 (버스·페리) 정리',author:'여행하는곰',ago:1440,views:1530,likes:72,photos:[IMG.airport],body:'공항에서 바로 강주아오 대교 셔틀버스를 타면 편해요. 짐이 많으면 버스가, 시내 중심으로 가려면 페리가 나았어요.\n\n여권은 출입경 때 두 번 확인하니 꺼내기 쉬운 곳에 두세요.',comments:[]},
+ {id:8,board:'abroad',region:'필리핀',cat:'명소',title:'엘니도 호핑투어 A코스, 바다 색이 정말 이래요',author:'세부바다',ago:70,views:1102,likes:94,photos:[IMG.elnido,IMG.lagoon,IMG.boats],body:'보정 안 한 사진이에요. 배에서 내려 얕은 물을 걸어야 하는 곳이 있어서 아쿠아슈즈가 꼭 필요해요.\n\n구명조끼는 배에 다 있고, 수영을 못 해도 스노클링 할 수 있게 도와줬어요.',comments:[C('은퇴후여행','바다 색이 믿기지 않네요. 멀미는 괜찮으셨어요?',50,[C('세부바다','파도가 잔잔해서 괜찮았어요. 그래도 멀미약은 드시고 타세요.',41)])]},
+ {id:9,board:'abroad',region:'필리핀',cat:'숙소',title:'세부 막탄 리조트, 부모님 모시고 가기 좋았던 곳',author:'부산갈매기55',ago:300,views:530,likes:29,photos:[IMG.resort,IMG.deck],body:'공항에서 20분이라 이동이 짧은 게 제일 좋았어요. 방에서 바다가 보이고, 리조트 안에 식당이 여러 곳이라 밖에 안 나가도 됐습니다.',comments:[]},
+ {id:10,board:'abroad',region:'필리핀',cat:'교통',title:'세부에서 보홀 가는 배, 오전 첫 배가 덜 흔들려요',author:'세부바다',ago:2880,views:410,likes:18,photos:[],body:'오후에는 바람이 세져서 많이 흔들렸어요. 표는 하루 전에 사 두면 아침에 줄 설 필요가 없어요.',comments:[]},
+ {id:11,board:'domestic',region:'강원·정선',cat:'명소',title:'정선 만항재와 하이원 곤돌라, 단풍 절정이에요',author:'정선나그네',ago:52,views:988,likes:76,photos:[IMG.mount,IMG.valley],body:'이번 주말 다녀왔어요. 만항재는 차로 정상 바로 아래까지 올라갈 수 있어서 걷기 힘든 분도 경치를 보실 수 있어요.\n\n곤돌라는 오전 10시 전에 타면 기다리지 않아요. 정상 바람이 차니 목도리 챙기세요.',comments:[C('산책하는김씨','다음 주에도 단풍 남아 있을까요?',40,[C('정선나그네','정상 쪽은 지고 있고, 중턱은 다음 주까지 괜찮을 것 같아요.',33)])]},
+ {id:12,board:'domestic',region:'강원·정선',cat:'맛집',title:'정선 아리랑시장 곤드레밥·콧등치기 국수',author:'정선나그네',ago:400,views:620,likes:41,photos:[IMG.kfood],body:'장날(2·7일)에 가면 볼거리가 더 많아요. 곤드레밥은 양념장을 조금씩 넣어 비벼 드세요. 메밀전병도 꼭 드셔 보세요.',comments:[]},
+ {id:13,board:'domestic',region:'강원·정선',cat:'교통',title:'청량리역에서 정선 가는 기차, 갈아타는 법',author:'여행하는곰',ago:1700,views:702,likes:33,photos:[],body:'민둥산역에서 내려 군내버스나 택시로 들어가요. 버스 시간은 역 앞 안내판에 붙어 있고, 배차가 길어서 미리 사진을 찍어 두면 좋아요.',comments:[]},
+ {id:14,board:'domestic',region:'서울',cat:'명소',title:'북촌 한옥마을, 조용히 걷는 골목 코스',author:'사진찍는박선생',ago:130,views:540,likes:35,photos:[IMG.hanok,IMG.stream],body:'주민분들이 사시는 곳이라 오전 10시부터 오후 5시 사이에만 방문할 수 있어요. 안국역 2번 출구에서 시작해 정독도서관 쪽으로 내려오면 오르막이 덜해요.',comments:[]},
+ {id:15,board:'domestic',region:'부산',cat:'맛집',title:'부산 남포동 떡볶이·어묵 골목 다녀왔어요',author:'부산갈매기55',ago:820,views:470,likes:22,photos:[IMG.tteok],body:'국제시장 구경하고 출출할 때 들르기 좋아요. 앉을 자리가 있는 가게도 있어서 오래 서 있지 않아도 돼요.',comments:[]},
+ {id:16,board:'domestic',region:'제주',cat:'숙소',title:'제주 동쪽 바다 보이는 숙소, 엘리베이터 있는 곳',author:'산책하는김씨',ago:2200,views:388,likes:19,photos:[IMG.beach],body:'계단이 많은 숙소가 많아서 엘리베이터 있는 곳만 골랐어요. 성산 일출봉까지 차로 15분이에요.',comments:[]},
+ {id:17,board:'lounge',region:'자유수다',cat:'',title:'여행 갈 때 꼭 챙기는 물건 하나씩 말해 봐요',author:'산책하는김씨',ago:15,views:430,likes:24,photos:[],body:'저는 접이식 지팡이요. 평소엔 안 쓰는데 여행지 돌길에서는 꼭 필요하더라고요. 다들 뭐 챙기세요?',comments:[C('호이안등불','휴대용 선풍기요. 동남아는 이거 없으면 힘들어요.',12),C('정선나그네','저는 파스요. 많이 걷는 날 밤에 꼭 붙여요.',8),C('세부바다','방수 휴대폰 주머니요!',5)]},
+ {id:18,board:'lounge',region:'여행 후기',cat:'',title:'60대 친구 넷이서 첫 해외여행, 다낭 4박 후기',author:'은퇴후여행',ago:900,views:1820,likes:120,photos:[IMG.gold,IMG.pool,IMG.food],body:'퇴직 기념으로 동창 넷이 처음 같이 나갔어요. 비행기 5시간이 길까 걱정했는데 생각보다 괜찮았습니다.\n\n좋았던 점: 음식이 입에 맞고, 마사지가 저렴해요.\n아쉬운 점: 한낮에는 너무 더워서 오전·저녁에만 다녔어요.\n\n다음엔 호이안에서 하루 더 묵고 싶어요.',comments:[C('부산갈매기55','부럽습니다. 저도 친구들 모아 봐야겠어요.',600)]},
+ {id:19,board:'lounge',region:'질문·답변',cat:'',title:'무릎이 안 좋은데 많이 안 걷는 해외 여행지 있을까요?',author:'부산갈매기55',ago:66,views:310,likes:12,photos:[],body:'계단 많은 곳은 힘들어서요. 리조트 안에서 쉬면서 가끔 나가는 정도로 다녀올 만한 곳 추천 부탁드려요.',comments:[C('세부바다','세부 막탄 리조트 추천해요. 공항에서 가깝고 리조트 안에서 다 해결돼요.',40)]},
+ {id:20,board:'lounge',region:'사람들 이야기',cat:'',title:'손주랑 처음 간 기차 여행 이야기',author:'정선나그네',ago:1300,views:280,likes:31,photos:[],body:'창밖 보면서 산 이름 맞히기 놀이를 했어요. 다음에는 바다 보이는 기차를 타 보자고 약속했습니다.',comments:[]},
+ {id:21,board:'lounge',region:'사진 갤러리',cat:'',title:'하롱베이 아침',author:'사진찍는박선생',ago:200,views:350,likes:48,photos:[IMG.halong],body:'안개가 걷히는 순간이에요.',comments:[]},
+ {id:22,board:'lounge',region:'사진 갤러리',cat:'',title:'정선 가을 산',author:'정선나그네',ago:260,views:300,likes:39,photos:[IMG.valley,IMG.mount],body:'',comments:[]},
+ {id:23,board:'lounge',region:'사진 갤러리',cat:'',title:'보홀 가는 바다',author:'세부바다',ago:500,views:260,likes:33,photos:[IMG.lagoon],body:'',comments:[]},
+ {id:24,board:'lounge',region:'사진 갤러리',cat:'',title:'엘니도 섬 사이',author:'세부바다',ago:520,views:240,likes:30,photos:[IMG.boats,IMG.elnido],body:'',comments:[]},
+ {id:25,board:'lounge',region:'사진 갤러리',cat:'',title:'북촌 골목',author:'사진찍는박선생',ago:800,views:210,likes:21,photos:[IMG.hanok],body:'',comments:[]},
+ {id:26,board:'lounge',region:'사진 갤러리',cat:'',title:'리조트 해 질 녘',author:'호이안등불',ago:900,views:230,likes:27,photos:[IMG.poolnight],body:'',comments:[]},
+ {id:27,board:'lounge',region:'자유수다',cat:'',title:'여기 광고 글 올려도 되나요? 좋은 상품 소개해 드림',author:'홍보계정77',ago:9,views:41,likes:0,photos:[],body:'(신고가 들어온 예시 글이에요. 관리자 화면에서 가리기·삭제를 해 볼 수 있어요.)',comments:[],reports:3}
+];
+POSTS.forEach(p=>{p.blind=p.blind||false;p.deleted=false;p.reports=p.reports||0;p.liked=false});
+POSTS.find(p=>p.id===17).comments[2].reports=2;
+
+let MEMBERS=[
+ {nick:'은퇴후여행',joined:'2026.09.02',posts:2,cmts:4,reports:0,status:'ok'},
+ {nick:'호이안등불',joined:'2026.09.05',posts:2,cmts:3,reports:0,status:'ok'},
+ {nick:'세부바다',joined:'2026.09.08',posts:5,cmts:4,reports:0,status:'ok'},
+ {nick:'정선나그네',joined:'2026.09.11',posts:4,cmts:3,reports:0,status:'ok'},
+ {nick:'부산갈매기55',joined:'2026.09.15',posts:3,cmts:2,reports:0,status:'ok'},
+ {nick:'사진찍는박선생',joined:'2026.09.20',posts:4,cmts:0,reports:0,status:'ok'},
+ {nick:'마카오에그타르트',joined:'2026.10.01',posts:2,cmts:0,reports:0,status:'ok'},
+ {nick:'산책하는김씨',joined:'2026.10.03',posts:2,cmts:3,reports:0,status:'ok'},
+ {nick:'여행하는곰',joined:'2026.10.06',posts:2,cmts:0,reports:0,status:'ok'},
+ {nick:'홍보계정77',joined:'2026.10.21',posts:1,cmts:1,reports:5,status:'stop',until:'2026.10.29',reason:'광고 글 반복'}
+];
+
+let BANNERS=[
+ {id:1,title:'가을 단풍 여행 후기를 모아요',sub:'정선·설악 단풍 사진과 길 안내',img:IMG.valley,link:'#board/domestic',on:true},
+ {id:2,title:'다낭 처음 가세요? 먼저 읽어 보세요',sub:'숙소·교통·날씨 질문 모음',img:IMG.gold,link:'#post/2',on:true},
+ {id:3,title:'놀판 이용 규칙 안내',sub:'모두가 편한 커뮤니티를 위해',img:IMG.map,link:'#post/1',on:true},
+ {id:4,title:'필리핀 섬 사진 모아 보기',sub:'회원님들이 찍은 바다 사진',img:IMG.elnido,link:'#board/lounge',on:false}
+];
+
+/* ---------- 상태 ---------- */
+const S={user:null,boardState:{abroad:{region:0,cat:0},domestic:{region:0,cat:0},lounge:{region:0,cat:0}},replyTo:null,slide:0,admTab:'members',memFilter:'all',postFilter:'reported',myTab:'posts',join:{step:'start',via:'',birth:null,agree:{}},draft:{board:'abroad',region:'',cat:'',title:'',body:'',photos:[]},recent:['다낭 숙소','에그타르트','정선 곤드레','보홀 배'],q:'',hist:[]};
+const TODAY=new Date();
+const $=s=>document.querySelector(s);
+const view=$('#view'),appbar=$('#appbar'),tabbar=$('#tabbar'),layer=$('#layer'),phone=$('#phone'),fab=$('#fab');
+
+function ago(m){if(m<1)return'방금';if(m<60)return m+'분 전';if(m<1440)return Math.floor(m/60)+'시간 전';return Math.floor(m/1440)+'일 전'}
+const ncm=p=>p.comments.reduce((a,c)=>a+1+c.replies.length,0);
+const vis=p=>!p.deleted;
+const boardLabel=p=>BOARDS[p.board].name+' · '+p.region+(p.cat?' · '+p.cat:'');
+
+/* ---------- 라우터 ---------- */
+function go(h){if(location.hash==='#'+h)render();else location.hash=h}
+function back(){if(history.length>1&&S.hist.length>1){S.hist.pop();history.back()}else go('home')}
+window.addEventListener('hashchange',()=>{S.hist.push(location.hash);render()});
+function route(){const h=(location.hash||'#home').slice(1).split('/');return{name:h[0]||'home',arg:h[1]}}
+
+function render(){
+  const r=route();closeLayer();view.onclick=null;fab.hidden=true;
+  phone.classList.toggle('wide',r.name==='admin');
+  const map={home:vHome,board:vBoard,post:vPost,search:vSearch,write:vWrite,join:vJoin,my:vMy,admin:vAdmin};
+  (map[r.name]||vHome)(r.arg);
+  renderTabs(r);view.scrollTop=0;
+}
+function renderTabs(r){
+  const cur=r.name==='board'?r.arg:r.name==='my'||r.name==='join'||r.name==='admin'?'my':r.name==='home'?'home':'';
+  const items=[['home','홈','home'],['abroad','해외여행','globe'],['domestic','국내여행','pin'],['lounge','라운지','chat'],['my','내 정보','user']];
+  tabbar.innerHTML=items.map(([k,l,i])=>`<button type="button" data-tab="${k}" ${cur===k?'aria-current="page"':''}>${ic(i)}<span>${l}</span></button>`).join('');
+}
+tabbar.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.tab;go(k==='home'?'home':k==='my'?'my':'board/'+k)});
+
+function barMain(){appbar.className='appbar';appbar.innerHTML=`<button class="logo" type="button" data-go="home"><i>놀</i>놀판 <small>(예시)</small></button><span class="grow"></span><button class="fsbtn" type="button" data-act="fs" aria-label="글자 크기 바꾸기">가 ${fsLabel()}</button><button class="ibtn" type="button" data-go="search" aria-label="검색">${ic('search')}</button>`}
+function barSub(title,right=''){appbar.className='appbar sub';appbar.innerHTML=`<button class="ibtn" type="button" data-act="back" aria-label="뒤로">${ic('back')}</button><h1>${esc(title)}</h1>${right}`}
+appbar.addEventListener('click',e=>{const b=e.target.closest('[data-go],[data-act]');if(!b)return;if(b.dataset.go)go(b.dataset.go);else if(b.dataset.act==='back')back();else if(b.dataset.act==='fs')cycleFs();else if(b.dataset.act==='search')go('search')});
+
+/* ---------- 글자 크기 ---------- */
+const FS=[['m','보통'],['l','크게'],['xl','아주 크게']];
+function fsLabel(){const v=document.documentElement.dataset.fs||'m';return FS.find(f=>f[0]===v)[1]}
+function setFs(v){document.documentElement.dataset.fs=v;try{localStorage.setItem('nolpan-fs',v)}catch(e){}renderSideFs();if(route().name==='my')vMy();else{const a=appbar.querySelector('.fsbtn');if(a)a.textContent='가 '+fsLabel()}}
+function cycleFs(){const v=document.documentElement.dataset.fs||'m';const i=FS.findIndex(f=>f[0]===v);setFs(FS[(i+1)%3][0]);toast('글자 크기: '+fsLabel())}
+function fsSeg(){const v=document.documentElement.dataset.fs||'m';return FS.map(([k,l])=>`<button type="button" data-fs="${k}" aria-pressed="${v===k}">${l}</button>`).join('')}
+function renderSideFs(){$('#sideFs').innerHTML=fsSeg()}
+$('#sideFs').addEventListener('click',e=>{const b=e.target.closest('[data-fs]');if(b)setFs(b.dataset.fs)});
+try{const v=localStorage.getItem('nolpan-fs');if(v)document.documentElement.dataset.fs=v}catch(e){}
+
+/* ---------- 겹침 층 ---------- */
+function closeLayer(){layer.innerHTML='';layer.style.pointerEvents='none'}
+function sheet(html,onClick){layer.innerHTML=`<div class="dim" data-close></div><div class="sheet" role="dialog" aria-modal="true">${html}</div>`;
+  layer.querySelector('.sheet').addEventListener('click',e=>{if(e.target.closest('[data-close]'))return closeLayer();onClick&&onClick(e)});
+  layer.querySelector('.dim').addEventListener('click',closeLayer);
+  const f=layer.querySelector('.sheet button,.sheet input');f&&f.focus({preventScroll:true})}
+let tt;function toast(msg){clearTimeout(tt);const old=layer.querySelector('.toast');old&&old.remove();const d=document.createElement('div');d.className='toast';d.setAttribute('role','status');d.textContent=msg;layer.appendChild(d);tt=setTimeout(()=>d.remove(),2600)}
+function viewer(id){layer.innerHTML=`<div class="viewer" role="dialog" aria-label="사진 크게 보기"><img src="${U(id,1400)}" alt=""><button class="ibtn" type="button" aria-label="닫기">${ic('x')}</button></div>`;layer.querySelector('.viewer').addEventListener('click',closeLayer)}
+function needLogin(what){sheet(`<h3>로그인이 필요해요</h3><p>${what}은(는) 회원만 할 수 있어요. 만 19세 이상이면 카카오·네이버로 바로 가입할 수 있어요.</p><div class="btns"><button class="btn" type="button" data-close>닫기</button><button class="btn primary" type="button" data-x="join">로그인·가입하기</button></div>`,e=>{if(e.target.closest('[data-x="join"]')){S.join={step:'start',via:'',birth:null,agree:{}};go('join')}})}
+
+/* ---------- 홈 ---------- */
+function vHome(){
+  barMain();
+  const bs=BANNERS.filter(b=>b.on);
+  if(S.slide>=bs.length)S.slide=0;
+  const notices=POSTS.filter(p=>p.notice&&vis(p)&&!p.blind);
+  const hot=POSTS.filter(p=>vis(p)&&!p.blind&&!p.notice).map(p=>({p,s:p.likes*3+ncm(p)*5+p.views/20-p.ago/30})).sort((a,b)=>b.s-a.s).slice(0,7).map(x=>x.p);
+  const cnt=k=>POSTS.filter(p=>p.board===k&&vis(p)&&p.ago<1440).length;
+  view.innerHTML=`
+  ${bs.length?`<section class="banner" aria-roledescription="carousel" aria-label="알림 배너">
+    <div class="track" id="track" style="transform:translateX(-${S.slide*100}%)">${bs.map((b,i)=>`<button class="slide" type="button" data-link="${esc(b.link)}" aria-label="${esc(b.title)}" ${i!==S.slide?'tabindex="-1"':''}><img src="${U(b.img,900)}" alt="" ${i?'loading="lazy"':''}><span class="txt"><strong>${esc(b.title)}</strong><small>${esc(b.sub)}</small></span></button>`).join('')}</div>
+    <div class="count"><button type="button" data-sl="-1" aria-label="이전 배너">${ic('left')}</button><span id="slno">${S.slide+1} / ${bs.length}</span><button type="button" data-sl="1" aria-label="다음 배너">${ic('right')}</button></div>
+  </section>`:''}
+  <nav class="bigtabs" aria-label="게시판">${Object.entries(BOARDS).map(([k,b])=>`<button class="bigtab" type="button" data-go="board/${k}">${ic(b.icon)}${b.name}<small>오늘 새 글 ${cnt(k)}</small></button>`).join('')}</nav>
+  ${notices.map(n=>`<button class="notice-row" type="button" data-go="post/${n.id}"><span class="tag notice">공지</span><span>${esc(n.title.replace('[공지] ',''))}</span></button>`).join('')}
+  <div class="sec-h"><h2>실시간 인기글</h2><span class="updated">방금 업데이트</span></div>
+  <ol class="rank">${hot.map((p,i)=>`<li><button type="button" data-go="post/${p.id}"><span class="no">${i+1}</span><span class="t"><b>${esc(p.title)}</b><small>${BOARDS[p.board].name} · ${esc(p.region)} · 좋아요 ${p.likes} · 댓글 ${ncm(p)}</small></span>${p.photos[0]?`<img src="${U(p.photos[0],200)}" alt="" loading="lazy">`:''}</button></li>`).join('')}</ol>
+  <div class="sec-h"><h2>방금 올라온 글</h2><button class="more" type="button" data-go="board/lounge">라운지 전체 보기</button></div>
+  <ul class="list" style="margin:0 16px;border-radius:20px;overflow:hidden;border:1px solid var(--line-2)">${POSTS.filter(p=>vis(p)&&!p.notice).sort((a,b)=>a.ago-b.ago).slice(0,4).map(rowHTML).join('')}</ul>
+  ${foot()}`;
+  startAuto();bindSwipe();
+}
+function foot(){return `<p class="foot">놀판 (예시)는 제안용 데모예요. 실제 회사·서비스와 관계가 없어요. 사진: Unsplash 무료 이미지. 만 19세 이상만 가입할 수 있는 커뮤니티를 가정했어요.</p>`}
+let autoT;function startAuto(){clearInterval(autoT);autoT=setInterval(()=>{if(route().name!=='home'||layer.children.length)return;slideBy(1)},5000)}
+function slideBy(d){const n=BANNERS.filter(b=>b.on).length;if(!n)return;S.slide=(S.slide+d+n)%n;const t=$('#track');if(!t)return;t.style.transform=`translateX(-${S.slide*100}%)`;$('#slno').textContent=`${S.slide+1} / ${n}`;t.querySelectorAll('.slide').forEach((s,i)=>s.tabIndex=i===S.slide?0:-1)}
+function bindSwipe(){const b=view.querySelector('.banner');if(!b)return;let x0=null;b.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});b.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){slideBy(dx<0?1:-1);startAuto()}x0=null})}
+
+function rowHTML(p){
+  if(p.blind)return `<li><div class="prow blind"><div class="t"><b>관리자가 가린 글이에요</b><div class="meta"><span>${esc(p.author)}</span><span>${ago(p.ago)}</span></div></div></div></li>`;
+  return `<li><button class="prow ${p.notice?'pinned':''}" type="button" data-go="post/${p.id}"><span class="t">${p.notice?'<span class="meta-top"><span class="tag notice">공지</span></span>':p.cat?`<span class="meta-top"><span class="tag plain">${esc(p.region)} · ${esc(p.cat)}</span></span>`:''}<b>${esc(p.title.replace('[공지] ',''))}</b><span class="meta"><span>${esc(p.author)}</span><span>${ago(p.ago)}</span><span>${ic('eye')}${p.views.toLocaleString()}</span><span>${ic('chat')}${ncm(p)}</span><span>${ic('heart')}${p.likes}</span></span></span>${p.photos[0]?`<img src="${U(p.photos[0],240)}" alt="" loading="lazy">`:''}</button></li>`;
+}
+
+/* ---------- 게시판 ---------- */
+function vBoard(k){
+  if(!BOARDS[k])k='abroad';const B=BOARDS[k],st=S.boardState[k];
+  barMain();
+  const region=B.regions[st.region],cat=B.cats?B.cats[st.cat]:'';
+  let list=POSTS.filter(p=>p.board===k&&vis(p));
+  const pinned=POSTS.filter(p=>p.notice&&vis(p)&&!p.blind);
+  if(k==='lounge')list=list.filter(p=>p.region===region&&!p.notice);
+  else{list=list.filter(p=>(st.region===0||p.region===region)&&(st.cat===0||p.cat===cat))}
+  list.sort((a,b)=>a.ago-b.ago);
+  const gallery=k==='lounge'&&region==='사진 갤러리';
+  view.innerHTML=`<div class="board-head"><h2>${B.name}</h2><p>${B.desc}</p>
+    <div class="seg" role="group" aria-label="${k==='lounge'?'게시판':'지역'}">${B.regions.map((r,i)=>`<button type="button" data-rg="${i}" aria-pressed="${i===st.region}">${r}</button>`).join('')}</div>
+    ${B.cats?`<div class="chips" role="group" aria-label="분류">${B.cats.map((c,i)=>`<button class="chip" type="button" data-ct="${i}" aria-pressed="${i===st.cat}">${c}</button>`).join('')}</div>`:''}
+  </div>
+  ${gallery?(list.length?`<div class="gallery">${list.map(p=>`<button type="button" data-go="post/${p.id}" aria-label="${esc(p.title)}"><img src="${U(p.photos[0],400)}" alt="" loading="lazy">${p.photos.length>1?`<span class="cnt">${p.photos.length}</span>`:''}</button>`).join('')}</div>`:emptyHTML()):
+  `<ul class="list">${pinned.map(rowHTML).join('')}${list.map(rowHTML).join('')}</ul>${list.length?'':emptyHTML()}`}
+  <div style="height:96px"></div>`;
+  addFab(k,region,cat);
+  view.querySelectorAll('.seg,.chips').forEach(g=>{const on=g.querySelector('[aria-pressed="true"]');if(on&&on.offsetLeft+on.offsetWidth>g.clientWidth)g.scrollLeft=on.offsetLeft-16});
+  view.querySelectorAll('[data-rg]').forEach(b=>b.onclick=()=>{st.region=+b.dataset.rg;vBoard(k)});
+  view.querySelectorAll('[data-ct]').forEach(b=>b.onclick=()=>{st.cat=+b.dataset.ct;vBoard(k)});
+}
+function emptyHTML(){return `<div class="empty"><strong>아직 글이 없어요</strong>이 분류의 첫 글을 남겨 주세요.<br><button class="btn primary" type="button" data-act="write">글쓰기</button></div>`}
+function addFab(k,region,cat){fab.hidden=false;fab.onclick=()=>startWrite(k,region,cat)}
+function startWrite(k,region,cat){if(!S.user)return needLogin('글쓰기');const B=BOARDS[k||'abroad'];S.draft={board:k||'abroad',region:region&&region!=='전체'?region:(k==='lounge'?'자유수다':B.regions[1]),cat:cat&&cat!=='전체'?cat:(B.cats?'후기':''),title:'',body:'',photos:[]};go('write')}
+
+/* ---------- 글 상세 ---------- */
+function vPost(id){
+  const p=POSTS.find(x=>x.id===+id);
+  if(!p||p.deleted){barSub('글');view.innerHTML=`<div class="empty"><strong>삭제된 글이에요</strong>관리자가 지운 글이에요.<br><button class="btn" type="button" data-go="home">홈으로</button></div>`;return}
+  barSub(BOARDS[p.board].name,`<button class="ibtn" type="button" data-act="search" aria-label="검색">${ic('search')}</button>`);
+  if(!p._seen){p.views++;p._seen=true}
+  const me=S.user&&S.user.nick;
+  const cm=c=>`<div class="cmt"><span class="ava sm">${esc(c.author[0])}</span><div class="c"><b>${esc(c.author)}${c.author===p.author?'<em>글쓴이</em>':''}</b>${c.blind?'<p style="color:var(--mut)">관리자가 가린 댓글이에요</p>':`<p>${esc(c.text)}</p>`}<small>${ago(c.ago)}</small>${c.replyable!==false?`<button class="rbtn" type="button" data-reply="${c.id}" data-name="${esc(c.author)}">답글 쓰기</button>`:''}</div></div>`;
+  view.innerHTML=`<article class="post">
+    <div class="where">${p.notice?'<span class="tag notice">공지</span>':''}<span class="tag plain">${esc(boardLabel(p))}</span></div>
+    <h2>${esc(p.title.replace('[공지] ',''))}</h2>
+    <div class="author"><span class="ava">${esc(p.author[0])}</span><div><b>${esc(p.author)}</b><small>${ago(p.ago)} · 조회 ${p.views.toLocaleString()}</small></div></div>
+    ${p.blind?'<div class="blindbox">관리자가 가린 글이에요. 이용 규칙에 맞지 않는 내용이 있었어요.</div>':`
+    ${p.body?`<div class="body">${esc(p.body)}</div>`:''}
+    ${p.photos.length?`<div class="photos">${p.photos.map((ph,i)=>`<button type="button" data-view="${ph}" aria-label="사진 ${i+1} 크게 보기"><img src="${U(ph,900)}" alt="${esc(p.title)} 사진 ${i+1}" ${i?'loading="lazy"':''}></button>`).join('')}</div>`:''}
+    <div class="actions"><button class="like" type="button" data-like aria-pressed="${p.liked}">${ic('heart')}좋아요 <span>${p.likes}</span></button><button class="btn" type="button" data-report>신고</button></div>`}
+  </article>
+  <section class="comments" aria-label="댓글"><h3>댓글 ${ncm(p)}</h3>
+    ${p.comments.length?p.comments.map(c=>cm(c)+c.replies.map(r=>`<div class="reply">${cm({...r,replyable:false})}</div>`).join('')).join(''):'<p style="color:var(--mut);margin:8px 0">첫 댓글을 남겨 보세요.</p>'}
+    <div class="cbox" id="cbox">${S.replyTo?`<div class="to"><span>${esc(S.replyTo.name)}님에게 답글</span><button type="button" data-cancel>답글 취소</button></div>`:''}
+      <label class="sr" for="ctext">댓글 내용</label>
+      <textarea id="ctext" placeholder="${me?'따뜻한 댓글을 남겨 주세요':'로그인하면 댓글을 쓸 수 있어요'}" maxlength="500"></textarea>
+      <div class="row"><button class="btn primary" type="button" data-send>${S.replyTo?'답글 등록하기':'댓글 등록하기'}</button></div>
+    </div>
+  </section>${foot()}`;
+  view.onclick=e=>{
+    const t=e.target;
+    if(t.closest('[data-view]'))return viewer(t.closest('[data-view]').dataset.view);
+    if(t.closest('[data-like]')){if(!S.user)return needLogin('좋아요');p.liked=!p.liked;p.likes+=p.liked?1:-1;const b=t.closest('[data-like]');b.setAttribute('aria-pressed',p.liked);b.querySelector('span').textContent=p.likes;return}
+    if(t.closest('[data-report]')){if(!S.user)return needLogin('신고');return sheet(`<h3>이 글을 신고할까요?</h3><p>신고가 쌓이면 관리자가 확인하고 가릴 수 있어요.</p><div class="btns"><button class="btn" type="button" data-close>닫기</button><button class="btn primary" type="button" data-x>신고하기</button></div>`,ev=>{if(ev.target.closest('[data-x]')){p.reports++;closeLayer();toast('신고했어요. 관리자가 확인할게요')}})}
+    if(t.closest('[data-reply]')){if(!S.user)return needLogin('답글 쓰기');const b=t.closest('[data-reply]');S.replyTo={id:+b.dataset.reply,name:b.dataset.name};const keep=view.scrollTop;vPost(id);view.scrollTop=keep;view.scrollTop=$('#cbox').offsetTop-view.clientHeight/3;$('#ctext').focus({preventScroll:true});return}
+    if(t.closest('[data-cancel]')){S.replyTo=null;const keep=view.scrollTop;vPost(id);view.scrollTop=keep;return}
+    if(t.closest('[data-send]')){if(!S.user)return needLogin('댓글 쓰기');const v=$('#ctext').value.trim();if(v.length<2){toast('두 글자 이상 써 주세요');return $('#ctext').focus()}
+      const nc=C(S.user.nick,v,0);if(S.replyTo){const par=p.comments.find(c=>c.id===S.replyTo.id);par.replies.push(nc)}else p.comments.push(nc);
+      S.user.cmts.push({post:p.id,text:v});S.replyTo=null;const keep=view.scrollTop;vPost(id);view.scrollTop=keep+200;toast('댓글을 등록했어요');return}
+  };
+}
+
+/* ---------- 검색 ---------- */
+function vSearch(){
+  barSub('검색');
+  view.innerHTML=`<form class="search-in" id="sf" role="search"><label class="sr" for="q">검색어</label><input class="inp" id="q" type="search" placeholder="지역, 숙소, 맛집 이름으로 찾아요" value="${esc(S.q)}" autocomplete="off"><button class="btn primary" type="submit">검색</button></form><div id="sr"></div>`;
+  const draw=()=>{const q=S.q.trim();const box=$('#sr');
+    if(!q){box.innerHTML=`<div class="sec-h"><h2>최근 검색어</h2></div><div class="chips" style="flex-wrap:wrap">${S.recent.map(r=>`<button class="chip" type="button" data-q="${esc(r)}">${esc(r)}</button>`).join('')}</div><div class="sec-h"><h2>많이 찾는 지역</h2></div><div class="chips" style="flex-wrap:wrap">${['다낭','호이안','마카오','세부','정선','북촌','제주'].map(r=>`<button class="chip" type="button" data-q="${r}">${r}</button>`).join('')}</div>`;return}
+    const words=q.split(/\s+/);const res=POSTS.filter(p=>vis(p)&&!p.blind&&words.every(w=>(p.title+' '+p.body+' '+p.region+' '+p.cat).includes(w)));
+    const hl=s=>{let h=esc(s);words.forEach(w=>{h=h.split(esc(w)).join(`<mark>${esc(w)}</mark>`)});return h};
+    box.innerHTML=res.length?`<p style="margin:16px;color:var(--mut)">'${esc(q)}' 검색 결과 ${res.length}건</p><ul class="list">${res.map(p=>`<li><button class="prow" type="button" data-go="post/${p.id}"><span class="t"><span class="meta-top"><span class="tag plain">${esc(boardLabel(p))}</span></span><b>${hl(p.title.replace('[공지] ',''))}</b><span class="meta"><span>${esc(p.author)}</span><span>${ago(p.ago)}</span><span>${ic('chat')}${ncm(p)}</span></span></span>${p.photos[0]?`<img src="${U(p.photos[0],240)}" alt="" loading="lazy">`:''}</button></li>`).join('')}</ul>`
+      :`<div class="empty"><strong>'${esc(q)}'에 맞는 글이 없어요</strong>띄어쓰기를 줄이거나 지역 이름만 넣어 보세요.<br><button class="btn" type="button" data-clear>검색어 지우기</button></div>`};
+  draw();
+  $('#sf').onsubmit=e=>{e.preventDefault();S.q=$('#q').value;const q=S.q.trim();if(q&&!S.recent.includes(q))S.recent=[q,...S.recent].slice(0,6);draw()};
+  view.onclick=e=>{const c=e.target.closest('[data-q]');if(c){S.q=c.dataset.q;$('#q').value=S.q;draw()}if(e.target.closest('[data-clear]')){S.q='';$('#q').value='';draw();$('#q').focus()}};
+  if(!S.q)setTimeout(()=>$('#q')&&$('#q').focus({preventScroll:true}),50);
+}
+
+/* ---------- 글쓰기 ---------- */
+function vWrite(){
+  if(!S.user){barSub('글쓰기');view.innerHTML=`<div class="empty"><strong>로그인이 필요해요</strong><button class="btn primary" type="button" data-go="join">로그인·가입하기</button></div>`;return}
+  const d=S.draft,B=BOARDS[d.board];
+  barSub('글쓰기');
+  const regs=d.board==='lounge'?B.regions:B.regions.slice(1);
+  view.innerHTML=`<form class="pad" id="wf" novalidate>
+    <div class="field"><span class="lab">게시판 <span class="req">*</span></span><div class="seg" style="margin:0">${Object.entries(BOARDS).map(([k,b])=>`<button type="button" data-wb="${k}" aria-pressed="${d.board===k}">${b.name}</button>`).join('')}</div></div>
+    <div class="field"><label for="wr">${d.board==='lounge'?'세부 게시판':'지역'} <span class="req">*</span></label><select class="inp" id="wr">${regs.map(r=>`<option ${r===d.region?'selected':''}>${r}</option>`).join('')}</select></div>
+    ${B.cats?`<div class="field"><span class="lab">분류 <span class="req">*</span></span><div class="chips" style="padding:0;flex-wrap:wrap">${B.cats.slice(1).map(c=>`<button class="chip" type="button" data-wc="${c}" aria-pressed="${d.cat===c}">${c}</button>`).join('')}</div></div>`:''}
+    <div class="field"><label for="wt">제목 <span class="req">*</span></label><input class="inp" id="wt" maxlength="60" value="${esc(d.title)}" placeholder="예) 다낭 미케 해변 숙소 후기"><div class="errmsg" id="et" hidden>제목을 두 글자 이상 써 주세요</div></div>
+    <div class="field"><label for="wbody">내용 <span class="req">*</span></label><textarea class="inp" id="wbody" placeholder="다녀온 곳, 가는 길, 좋았던 점과 아쉬운 점을 적어 주세요">${esc(d.body)}</textarea><div class="errmsg" id="eb" hidden>내용을 10자 이상 써 주세요</div></div>
+    <div class="field"><span class="lab">사진 <small style="color:var(--mut);font-weight:500">(선택, 최대 10장)</small></span>
+      <div class="thumbs" id="thumbs"></div>
+      <p class="help">휴대폰 앨범에서 여러 장을 한 번에 고를 수 있어요. 첫 사진이 목록 썸네일이 돼요.</p></div>
+    <div class="bottom-cta" style="padding-left:0;padding-right:0"><button class="btn primary block" type="submit" id="wsubmit">글 올리기</button></div>
+  </form>`;
+  const th=()=>{$('#thumbs').innerHTML=d.photos.map((ph,i)=>`<div class="th"><img src="${ph}" alt="고른 사진 ${i+1}">${i===0?'<span class="first">대표</span>':''}<button type="button" data-rm="${i}" aria-label="사진 ${i+1} 빼기">${ic('x')}</button></div>`).join('')+(d.photos.length<10?`<label class="add">${ic('image')}<span>${d.photos.length}/10</span><input class="sr" type="file" id="wf-file" accept="image/*" multiple></label>`:'');
+    const f=$('#wf-file');f&&(f.onchange=()=>{const files=[...f.files].slice(0,10-d.photos.length);files.forEach(fl=>d.photos.push(URL.createObjectURL(fl)));if(f.files.length>files.length)toast('사진은 10장까지 올릴 수 있어요');th()})};
+  th();
+  const sync=()=>{d.title=$('#wt').value;d.body=$('#wbody').value;d.region=$('#wr').value};
+  view.onclick=e=>{const t=e.target;
+    const wb=t.closest('[data-wb]');if(wb){sync();d.board=wb.dataset.wb;const nb=BOARDS[d.board];d.region=d.board==='lounge'?nb.regions[0]:nb.regions[1];d.cat=nb.cats?'후기':'';return vWrite()}
+    const wc=t.closest('[data-wc]');if(wc){d.cat=wc.dataset.wc;view.querySelectorAll('[data-wc]').forEach(b=>b.setAttribute('aria-pressed',b===wc));return}
+    const rm=t.closest('[data-rm]');if(rm){d.photos.splice(+rm.dataset.rm,1);th()}};
+  $('#wf').onsubmit=e=>{e.preventDefault();sync();let ok=true;
+    const et=d.title.trim().length<2,eb=d.body.trim().length<10;$('#et').hidden=!et;$('#eb').hidden=!eb;$('#wt').classList.toggle('err',et);$('#wbody').classList.toggle('err',eb);
+    if(et||eb){(et?$('#wt'):$('#wbody')).focus();return}
+    const btn=$('#wsubmit');btn.disabled=true;btn.textContent='올리는 중';
+    setTimeout(()=>{const id=Math.max(...POSTS.map(p=>p.id))+1;POSTS.unshift({id,board:d.board,region:d.region,cat:d.cat,title:d.title.trim(),body:d.body.trim(),author:S.user.nick,ago:0,views:0,likes:0,photos:[...d.photos],comments:[],blind:false,deleted:false,reports:0,liked:false});
+      S.user.posts.push(id);const m=MEMBERS.find(m=>m.nick===S.user.nick);m&&m.posts++;
+      go('post/'+id);setTimeout(()=>toast('글을 올렸어요'),50)},500)};
+}
+
+/* ---------- 가입·로그인 (성인 확인) ---------- */
+function vJoin(){
+  const J=S.join;barSub(J.step==='start'?'로그인·가입':'회원가입');
+  const stepBar=n=>`<div class="steps" aria-label="4단계 중 ${n}단계">${[1,2,3,4].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')}</div>`;
+  if(J.step==='done'&&!S.user)J.step='start';
+  if(S.user&&J.step==='start'){go('my');return}
+  if(J.step==='start'){
+    view.innerHTML=`<div class="join-hero"><h2>여행 이야기,<br>놀판에서 나눠요</h2><p>만 19세 이상만 가입할 수 있어요. 처음이면 가입, 이미 회원이면 같은 버튼으로 로그인돼요.</p></div>
+    <div class="social"><button class="sbtn kakao" type="button" data-via="카카오"><span class="mk">K</span>카카오로 시작하기</button><button class="sbtn naver" type="button" data-via="네이버"><span class="mk">N</span>네이버로 시작하기</button><button class="sbtn mail" type="button" data-via="이메일">이메일로 가입하기</button></div>
+    <p class="note">데모라서 실제 카카오·네이버 계정에 연결하지 않아요. 누르면 가입 흐름을 그대로 보여 드려요.</p>
+    <div style="padding:20px"><button class="btn block" type="button" data-demo>데모 회원으로 바로 둘러보기</button></div>`;
+    view.onclick=e=>{const v=e.target.closest('[data-via]');if(v){const via=v.dataset.via;
+        if(via==='이메일'){J.via=via;J.step='terms';return vJoin()}
+        sheet(`<h3>${via} 계정으로 계속할까요?</h3><p>실제 서비스에서는 ${via} 로그인 창이 열리고, 닉네임·이메일 제공에 동의하면 돌아와요. 데모에서는 바로 다음 단계로 넘어가요.</p><div class="btns"><button class="btn" type="button" data-close>닫기</button><button class="btn primary" type="button" data-x>동의하고 계속하기</button></div>`,ev=>{if(ev.target.closest('[data-x]')){J.via=via;J.step='terms';closeLayer();vJoin()}});return}
+      if(e.target.closest('[data-demo]')){login('은퇴후여행');go('home');setTimeout(()=>toast('은퇴후여행 님, 반가워요'),50)}};
+    return}
+  if(J.step==='terms'){
+    const items=[['age','만 19세 이상이에요',true],['tos','이용약관 동의',true],['priv','개인정보 수집·이용 동의',true],['mkt','이벤트·혜택 알림 받기',false]];
+    const all=items.every(i=>J.agree[i[0]]);const req=items.filter(i=>i[2]).every(i=>J.agree[i[0]]);
+    view.innerHTML=`${stepBar(1)}<div class="join-hero"><h2>약관에 동의해 주세요</h2><p>${esc(J.via)}로 가입하고 있어요.</p></div>
+    <div class="pad"><div class="checks"><label class="ck all"><input type="checkbox" data-all ${all?'checked':''}><span>모두 동의하기</span></label>
+    ${items.map(([k,l,r])=>`<label class="ck"><input type="checkbox" data-ag="${k}" ${J.agree[k]?'checked':''}><span>${l} <small>${r?'(필수)':'(선택)'}</small></span>${k==='tos'||k==='priv'?`<button class="view" type="button" data-doc="${k}">보기</button>`:''}</label>`).join('')}</div></div>
+    <div class="bottom-cta"><button class="btn primary block" type="button" data-next ${req?'':'disabled'}>다음</button></div>`;
+    view.onclick=e=>{const t=e.target;
+      if(t.closest('[data-doc]')){e.preventDefault();return docSheet(t.closest('[data-doc]').dataset.doc)}
+      if(t.matches('[data-all]')){items.forEach(i=>J.agree[i[0]]=t.checked);return vJoin()}
+      if(t.matches('[data-ag]')){J.agree[t.dataset.ag]=t.checked;return vJoin()}
+      if(t.closest('[data-next]')){J.step='birth';vJoin()}};
+    return}
+  if(J.step==='birth'){
+    const y=TODAY.getFullYear();
+    view.innerHTML=`${stepBar(2)}<div class="join-hero"><h2>생년월일을 알려 주세요</h2><p>만 19세 미만은 가입할 수 없어요.</p></div>
+    <div class="pad"><div class="field"><span class="lab">생년월일 <span class="req">*</span></span><div class="birth">
+      <label class="sr" for="by">태어난 해</label><select class="inp" id="by"><option value="">연도</option>${Array.from({length:90},(_,i)=>y-i).map(v=>`<option value="${v}" ${J.birth&&J.birth[0]==v?'selected':''}>${v}년</option>`).join('')}</select>
+      <label class="sr" for="bm">태어난 달</label><select class="inp" id="bm"><option value="">월</option>${Array.from({length:12},(_,i)=>i+1).map(v=>`<option value="${v}" ${J.birth&&J.birth[1]==v?'selected':''}>${v}월</option>`).join('')}</select>
+      <label class="sr" for="bd">태어난 날</label><select class="inp" id="bd"><option value="">일</option>${Array.from({length:31},(_,i)=>i+1).map(v=>`<option value="${v}" ${J.birth&&J.birth[2]==v?'selected':''}>${v}일</option>`).join('')}</select>
+    </div><div class="errmsg" id="eB" hidden></div></div></div>
+    <p class="note"><b>실제 서비스에서는</b> 휴대폰 본인인증(PASS 등)으로 생년월일을 받아서, 직접 입력보다 확실하게 막을 수 있어요. 어떤 방식으로 할지는 미팅에서 정해요.</p>
+    <div class="bottom-cta"><button class="btn primary block" type="button" data-check>나이 확인하기</button></div>`;
+    view.onclick=e=>{if(!e.target.closest('[data-check]'))return;const by=+$('#by').value,bm=+$('#bm').value,bd=+$('#bd').value,er=$('#eB');
+      if(!by||!bm||!bd){er.hidden=false;er.textContent='연도, 월, 일을 모두 골라 주세요';return}
+      const dt=new Date(by,bm-1,bd);if(dt.getMonth()!==bm-1){er.hidden=false;er.textContent=`${bm}월에는 ${bd}일이 없어요. 날짜를 다시 골라 주세요`;return}
+      let age=TODAY.getFullYear()-by;if(TODAY.getMonth()<bm-1||(TODAY.getMonth()===bm-1&&TODAY.getDate()<bd))age--;
+      J.birth=[by,bm,bd];J.age=age;J.step=age>=19?'nick':'blocked';vJoin()};
+    return}
+  if(J.step==='blocked'){
+    view.innerHTML=`<div class="blocked"><div class="mark">19</div><h2>만 19세 이상만 가입할 수 있어요</h2><p>입력한 생년월일로는 만 ${J.age}세예요.<br>놀판은 성인 회원만 이용하는 커뮤니티예요.</p><p style="font-size:.9rem;color:var(--mut)">가입 정보는 저장하지 않았어요.</p><button class="btn block" type="button" data-home style="margin-top:16px">홈으로 가기</button></div>`;
+    view.onclick=e=>{if(e.target.closest('[data-home]')){S.join={step:'start',via:'',birth:null,agree:{}};go('home')}};return}
+  if(J.step==='nick'){
+    view.innerHTML=`${stepBar(3)}<div class="join-hero"><h2>나이 확인이 끝났어요</h2><p>만 ${J.age}세로 확인했어요. 이제 커뮤니티에서 쓸 닉네임을 정해 주세요.</p></div>
+    <div class="pad"><div class="field"><label for="nk">닉네임 <span class="req">*</span></label><input class="inp" id="nk" maxlength="10" placeholder="2~10자, 한글·영문·숫자" value="${esc(J.nick||'')}"><div class="help" id="nh">다른 회원에게 보이는 이름이에요. 나중에 바꿀 수 있어요.</div></div></div>
+    <div class="bottom-cta"><button class="btn primary block" type="button" data-done>가입 마치기</button></div>`;
+    view.onclick=e=>{if(!e.target.closest('[data-done]'))return;const v=$('#nk').value.trim(),h=$('#nh'),i=$('#nk');
+      const bad=m=>{h.className='errmsg';h.textContent=m;i.classList.add('err');i.focus()};
+      if(v.length<2)return bad('닉네임을 2자 이상 써 주세요');
+      if(!/^[가-힣a-zA-Z0-9]+$/.test(v))return bad('한글, 영문, 숫자만 쓸 수 있어요. 띄어쓰기도 빼 주세요');
+      if(MEMBERS.some(m=>m.nick===v))return bad(`'${v}'은(는) 이미 쓰는 닉네임이에요. 다른 이름을 골라 주세요`);
+      MEMBERS.unshift({nick:v,joined:fmtD(TODAY),posts:0,cmts:0,reports:0,status:'ok'});J.step='done';login(v);vJoin()};
+    return}
+  if(J.step==='done'){
+    view.innerHTML=`${stepBar(4)}<div class="join-hero"><h2>${esc(S.user.nick)} 님,<br>가입을 환영해요</h2><p>해외여행·국내여행·여행 라운지에서 이야기를 나눠 보세요.</p></div><div class="pad"><button class="btn primary block" type="button" data-go="home">홈으로 가기</button><div style="height:12px"></div><button class="btn block" type="button" data-w>첫 글 쓰기</button></div>`;
+    view.onclick=e=>{if(e.target.closest('[data-w]')){S.join.step='start';startWrite('lounge','자유수다','')}else if(e.target.closest('[data-go]'))S.join.step='start'};
+  }
+}
+function fmtD(d){return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`}
+function login(nick){S.user={nick,posts:POSTS.filter(p=>p.author===nick).map(p=>p.id),cmts:[]};POSTS.forEach(p=>p.comments.forEach(c=>{if(c.author===nick)S.user.cmts.push({post:p.id,text:c.text});c.replies.forEach(r=>{if(r.author===nick)S.user.cmts.push({post:p.id,text:r.text})})}))}
+function docSheet(k){sheet(k==='tos'?`<h3>이용약관 (예시)</h3><p>제1조 이 약관은 놀판 커뮤니티 이용 조건을 정해요.<br>제2조 회원은 만 19세 이상이어야 해요.<br>제3조 광고·도배·욕설 글은 안내 없이 가려질 수 있어요.<br><br>실제 약관 문구는 발주사에서 정해 주시면 그대로 넣어요.</p><div class="btns one"><button class="btn" type="button" data-close>닫기</button></div>`:`<h3>개인정보 수집·이용 (예시)</h3><p>모으는 항목: 닉네임, 이메일, 생년월일(나이 확인용)<br>쓰는 곳: 회원 관리, 성인 여부 확인<br>보관 기간: 탈퇴하면 바로 지워요(법에서 정한 기록은 정해진 기간만).</p><div class="btns one"><button class="btn" type="button" data-close>닫기</button></div>`)}
+
+/* ---------- 내 정보 ---------- */
+function vMy(){
+  barSub('내 정보');
+  if(!S.user){view.innerHTML=`<div class="join-hero"><h2>로그인하고<br>여행 이야기를 나눠요</h2><p>글쓰기, 댓글, 좋아요는 회원만 할 수 있어요.</p></div><div class="social"><button class="btn primary block" type="button" data-go="join">로그인·가입하기</button></div>
+    <ul class="menu"><li><div class="rowx"><span style="flex:1">글자 크기</span><div class="fsseg" data-fsseg>${fsSeg()}</div></div></li><li><button type="button" data-go="admin">${ic('shield')}<span>관리자 화면 (데모 바로가기)</span>${ic('right')}</button></li></ul>`;bindMy();return}
+  const u=S.user,mine=POSTS.filter(p=>u.posts.includes(p.id)&&vis(p)),liked=POSTS.filter(p=>p.liked&&vis(p));
+  const tabs=[['posts','내 글',mine.length],['cmts','내 댓글',u.cmts.length],['likes','좋아요',liked.length]];
+  view.innerHTML=`<div class="profile"><span class="ava">${esc(u.nick[0])}</span><div style="flex:1;min-width:0"><b>${esc(u.nick)}</b><small>성인 확인 완료<br>가입 ${MEMBERS.find(m=>m.nick===u.nick)?.joined||''}</small></div><button class="btn sm" type="button" data-nick>닉네임 바꾸기</button></div>
+  <div class="seg" style="margin:0 16px 12px">${tabs.map(([k,l,n])=>`<button type="button" data-mt="${k}" aria-pressed="${S.myTab===k}">${l} ${n}</button>`).join('')}</div>
+  <div style="margin:0 16px 16px;border:1px solid var(--line-2);border-radius:20px;overflow:hidden;background:var(--card)">${
+    S.myTab==='posts'?(mine.length?`<ul class="list">${mine.map(rowHTML).join('')}</ul>`:'<div class="empty"><strong>아직 쓴 글이 없어요</strong>여행 이야기를 처음으로 남겨 보세요.</div>'):
+    S.myTab==='cmts'?(u.cmts.length?`<ul class="list">${u.cmts.map(c=>{const p=POSTS.find(x=>x.id===c.post);return `<li><button class="prow" type="button" data-go="post/${c.post}"><span class="t"><b>${esc(c.text)}</b><span class="meta"><span>${esc(p?p.title:'삭제된 글')}</span></span></span></button></li>`}).join('')}</ul>`:'<div class="empty"><strong>아직 쓴 댓글이 없어요</strong></div>'):
+    (liked.length?`<ul class="list">${liked.map(rowHTML).join('')}</ul>`:'<div class="empty"><strong>좋아요한 글이 없어요</strong>마음에 드는 글에 하트를 눌러 보세요.</div>')}</div>
+  <ul class="menu">
+    <li><div class="rowx"><span style="flex:1">글자 크기</span><div class="fsseg" data-fsseg>${fsSeg()}</div></div></li>
+    <li><button type="button" data-doc="tos">${ic('doc')}<span>이용약관</span>${ic('right')}</button></li>
+    <li><button type="button" data-doc="priv">${ic('doc')}<span>개인정보 처리방침</span>${ic('right')}</button></li>
+    <li><button type="button" data-go="admin">${ic('shield')}<span>관리자 화면 (데모 바로가기)</span>${ic('right')}</button></li>
+  </ul>
+  <ul class="menu"><li><button type="button" data-logout>${ic('out')}<span>로그아웃</span></button></li><li><button class="danger" type="button" data-leave>${ic('x')}<span>회원 탈퇴</span></button></li></ul>${foot()}`;
+  bindMy();
+}
+function bindMy(){view.onclick=e=>{const t=e.target;
+  const f=t.closest('[data-fsseg] [data-fs]');if(f)return setFs(f.dataset.fs);
+  const mt=t.closest('[data-mt]');if(mt){S.myTab=mt.dataset.mt;return vMy()}
+  const d=t.closest('[data-doc]');if(d)return docSheet(d.dataset.doc);
+  if(t.closest('[data-logout]')){S.user=null;toast('로그아웃했어요');return vMy()}
+  if(t.closest('[data-nick]'))return sheet(`<h3>닉네임 바꾸기</h3><div class="field"><label for="nn">새 닉네임</label><input class="inp" id="nn" maxlength="10" value="${esc(S.user.nick)}"><div class="help" id="nnh">2~10자, 한글·영문·숫자</div></div><div class="btns"><button class="btn" type="button" data-close>닫기</button><button class="btn primary" type="button" data-x>바꾸기</button></div>`,ev=>{if(!ev.target.closest('[data-x]'))return;const v=$('#nn').value.trim(),h=$('#nnh');
+      if(v.length<2||!/^[가-힣a-zA-Z0-9]+$/.test(v)){h.className='errmsg';h.textContent='2~10자 한글·영문·숫자로 써 주세요';return}
+      if(v!==S.user.nick&&MEMBERS.some(m=>m.nick===v)){h.className='errmsg';h.textContent='이미 쓰는 닉네임이에요';return}
+      const old=S.user.nick;const m=MEMBERS.find(m=>m.nick===old);m&&(m.nick=v);POSTS.forEach(p=>{if(p.author===old)p.author=v;p.comments.forEach(c=>{if(c.author===old)c.author=v;c.replies.forEach(r=>{if(r.author===old)r.author=v})})});S.user.nick=v;closeLayer();vMy();toast('닉네임을 바꿨어요')});
+  if(t.closest('[data-leave]'))return sheet(`<h3>정말 탈퇴할까요?</h3><p>탈퇴하면 회원 정보는 바로 지워요. 쓴 글과 댓글은 남고, 글쓴이는 '탈퇴한 회원'으로 바뀌어요.</p><label class="ck" style="padding:0;margin-bottom:12px"><input type="checkbox" id="lv"><span>위 내용을 확인했어요</span></label><div class="btns"><button class="btn" type="button" data-close>닫기</button><button class="btn primary" type="button" data-x style="background:var(--bad);border-color:var(--bad)">탈퇴하기</button></div>`,ev=>{if(!ev.target.closest('[data-x]'))return;if(!$('#lv').checked){toast('확인 칸에 체크해 주세요');return}
+      const old=S.user.nick;MEMBERS=MEMBERS.filter(m=>m.nick!==old);POSTS.forEach(p=>{if(p.author===old)p.author='탈퇴한 회원';p.comments.forEach(c=>{if(c.author===old)c.author='탈퇴한 회원';c.replies.forEach(r=>{if(r.author===old)r.author='탈퇴한 회원'})})});S.user=null;closeLayer();go('home');setTimeout(()=>toast('탈퇴했어요. 그동안 고마웠어요'),50)});
+}}
+
+/* ---------- 관리자 ---------- */
+const ST={ok:['정상','ok'],stop:['이용 정지','warn'],ban:['영구 차단','bad']};
+function vAdmin(){
+  barSub('관리자');
+  const reported=POSTS.filter(p=>vis(p)&&p.reports>0&&!p.blind).length+POSTS.reduce((a,p)=>a+p.comments.filter(c=>c.reports>0&&!c.blind).length,0);
+  const tabs=[['members','회원'],['posts','글·댓글'],['notice','공지'],['banner','배너']];
+  view.innerHTML=`<div class="adm-top"><h2>관리자</h2><p>데모라 누구나 들어올 수 있어요. 실제로는 관리자 계정만 열려요.</p>
+    <div class="kpis"><div class="kpi hot"><small>처리할 신고</small><b>${reported}</b>건</div><div class="kpi"><small>전체 회원</small><b>${MEMBERS.length}</b>명</div><div class="kpi"><small>오늘 새 글</small><b>${POSTS.filter(p=>vis(p)&&p.ago<1440).length}</b>개</div><div class="kpi"><small>켜진 배너</small><b>${BANNERS.filter(b=>b.on).length}</b>개</div></div>
+    <div class="seg" style="margin:0">${tabs.map(([k,l])=>`<button type="button" data-at="${k}" aria-pressed="${S.admTab===k}">${l}</button>`).join('')}</div></div>
+  <div id="adm"></div>`;
+  ({members:admMembers,posts:admPosts,notice:admNotice,banner:admBanner})[S.admTab]();
+  view.onclick=admClick;
+}
+function admMembers(){
+  const cnt=k=>k==='all'?MEMBERS.length:MEMBERS.filter(m=>m.status===k).length;
+  const list=MEMBERS.filter(m=>S.memFilter==='all'||m.status===S.memFilter);
+  $('#adm').innerHTML=`<div class="chips" style="padding:12px 16px">${[['all','전체'],['ok','정상'],['stop','정지'],['ban','차단']].map(([k,l])=>`<button class="chip" type="button" data-mf="${k}" aria-pressed="${S.memFilter===k}">${l} ${cnt(k)}</button>`).join('')}</div>
+  <ul class="alist">${list.map(m=>`<li class="arow"><span class="ava sm">${esc(m.nick[0])}</span><div class="t"><b>${esc(m.nick)}</b><small>가입 ${m.joined} · 글 ${m.posts} · 댓글 ${m.cmts}${m.reports?` · 신고 ${m.reports}`:''}${m.until?` · ${m.until}까지`:''}${m.reason?` · 사유: ${esc(m.reason)}`:''}</small></div><span class="tag ${ST[m.status][1]}">${ST[m.status][0]}</span><div class="acts">${m.status==='ok'?`<button class="btn sm" type="button" data-sus="${esc(m.nick)}">정지·차단</button>`:`<button class="btn sm" type="button" data-unsus="${esc(m.nick)}">풀어 주기</button>`}</div></li>`).join('')||'<li class="empty"><strong>해당하는 회원이 없어요</strong></li>'}</ul>`;
+}
+function admPosts(){
+  let list=POSTS.filter(vis);if(S.postFilter==='reported')list=list.filter(p=>p.reports>0||p.blind);
+  const cms=[];POSTS.forEach(p=>p.comments.forEach(c=>{if(c.reports>0||c.blind)cms.push({p,c})}));
+  $('#adm').innerHTML=`<div class="chips" style="padding:12px 16px"><button class="chip" type="button" data-pf="reported" aria-pressed="${S.postFilter==='reported'}">신고·가린 글</button><button class="chip" type="button" data-pf="all" aria-pressed="${S.postFilter==='all'}">전체 글 ${POSTS.filter(vis).length}</button></div>
+  <ul class="alist">${list.map(p=>`<li class="arow"><div class="t"><b>${esc(p.title)}</b><small>${esc(BOARDS[p.board].name)} · ${esc(p.author)} · ${ago(p.ago)}${p.reports?` · 신고 ${p.reports}`:''}</small></div>${p.blind?'<span class="tag warn">가림</span>':p.reports?'<span class="tag bad">신고</span>':'<span class="tag ok">공개</span>'}<div class="acts"><button class="btn sm" type="button" data-blind="${p.id}">${p.blind?'다시 보이기':'가리기'}</button><button class="btn sm danger" type="button" data-del="${p.id}">삭제</button></div></li>`).join('')||'<li class="empty"><strong>처리할 글이 없어요</strong>신고가 들어오면 여기에 모여요.</li>'}</ul>
+  <div class="sec-h"><h2>신고된 댓글</h2></div>
+  <ul class="alist">${cms.map(({p,c})=>`<li class="arow"><div class="t"><b>${esc(c.text)}</b><small>${esc(c.author)} · 글: ${esc(p.title)} · 신고 ${c.reports}</small></div>${c.blind?'<span class="tag warn">가림</span>':'<span class="tag bad">신고</span>'}<div class="acts"><button class="btn sm" type="button" data-cblind="${p.id}:${c.id}">${c.blind?'다시 보이기':'가리기'}</button></div></li>`).join('')||'<li class="empty"><strong>신고된 댓글이 없어요</strong></li>'}</ul>`;
+}
+function admNotice(){
+  const pinned=POSTS.filter(p=>p.notice&&vis(p)),cand=POSTS.filter(p=>!p.notice&&vis(p)&&!p.blind).slice(0,8);
+  $('#adm').innerHTML=`<div class="sec-h"><h2>지금 고정된 공지 ${pinned.length}</h2></div>
+  <ul class="alist">${pinned.map(p=>`<li class="arow">${ic('pin')}<div class="t"><b>${esc(p.title)}</b><small>홈과 모든 게시판 맨 위에 보여요</small></div><div class="acts"><button class="btn sm" type="button" data-pin="${p.id}">고정 풀기</button></div></li>`).join('')||'<li class="empty"><strong>고정된 공지가 없어요</strong></li>'}</ul>
+  <div class="sec-h"><h2>공지로 올릴 글 고르기</h2></div>
+  <ul class="alist">${cand.map(p=>`<li class="arow"><div class="t"><b>${esc(p.title)}</b><small>${esc(boardLabel(p))} · ${esc(p.author)}</small></div><div class="acts"><button class="btn sm" type="button" data-pin="${p.id}">공지로 고정</button></div></li>`).join('')}</ul>`;
+}
+function admBanner(){
+  const n=BANNERS.length;
+  $('#adm').innerHTML=`<div class="sec-h"><h2>홈 배너 순서</h2><span class="updated">위에서부터 보여요</span></div>
+  <ul class="alist">${BANNERS.map((b,i)=>`<li class="arow ${b.on?'':'off'}"><span class="num">${i+1}</span><div class="ord"><button type="button" data-bup="${i}" aria-label="${esc(b.title)} 위로" ${i===0?'disabled':''}>${ic('up')}</button><button type="button" data-bdn="${i}" aria-label="${esc(b.title)} 아래로" ${i===n-1?'disabled':''}>${ic('down')}</button></div><img src="${U(b.img,200)}" alt=""><div class="t"><b>${esc(b.title)}</b><small>연결: ${esc(b.link)}</small></div><button class="toggle" type="button" role="switch" aria-checked="${b.on}" aria-label="${esc(b.title)} 보이기" data-bon="${i}"></button><button class="btn sm danger" type="button" data-bdel="${i}">삭제</button></li>`).join('')}</ul>
+  <div class="pad"><div class="card pad"><h3 style="margin:0 0 12px;font-size:1.06rem">새 배너 추가</h3>
+    <div class="field"><span class="lab">이미지 <span class="req">*</span></span><div class="thumbs" style="grid-template-columns:repeat(2,1fr)" id="bimg"><label class="add">${ic('image')}<span>이미지 고르기</span><input class="sr" type="file" id="bfile" accept="image/*"></label></div><p class="help">가로 16:10 비율이 가장 잘 맞아요.</p></div>
+    <div class="field"><label for="bt">문구 <span class="req">*</span></label><input class="inp" id="bt" maxlength="30" placeholder="예) 겨울 온천 여행 후기 모음"></div>
+    <div class="field"><label for="bl">누르면 갈 곳</label><select class="inp" id="bl"><option value="#board/abroad">해외여행 게시판</option><option value="#board/domestic">국내여행 게시판</option><option value="#board/lounge">여행 라운지</option><option value="#post/1">이용 규칙 공지</option></select></div>
+    <div class="errmsg" id="be" hidden>이미지와 문구를 모두 넣어 주세요</div>
+    <button class="btn primary" type="button" data-badd>배너 추가하기</button></div></div>`;
+  admBannerRebind();
+}
+function admBannerRebind(){const f=$('#bfile');if(f)f.onchange=e=>{const x=e.target.files[0];if(!x)return;S._bpick=URL.createObjectURL(x);$('#bimg').querySelector('.th')?.remove();$('#bimg').insertAdjacentHTML('afterbegin',`<div class="th"><img src="${S._bpick}" alt="고른 배너 이미지"></div>`)}}
+function refreshAdm(){const k=view.scrollTop;vAdmin();view.scrollTop=k}
+function admClick(e){const t=e.target,q=s=>t.closest(s);let x;
+  if(x=q('[data-at]')){S.admTab=x.dataset.at;return vAdmin()}
+  if(x=q('[data-mf]')){S.memFilter=x.dataset.mf;return refreshAdm()}
+  if(x=q('[data-pf]')){S.postFilter=x.dataset.pf;return refreshAdm()}
+  if(x=q('[data-sus]')){const nick=x.dataset.sus;return sheet(`<h3>${esc(nick)} 님 이용 제한</h3><p>정지 기간이 끝나면 자동으로 풀려요. 영구 차단은 같은 정보로 다시 가입할 수 없어요.</p>
+      <div class="field"><span class="lab">기간</span><div class="chips" style="padding:0;flex-wrap:wrap">${['3일','7일','30일','영구 차단'].map((d,i)=>`<button class="chip" type="button" data-per="${d}" aria-pressed="${i===1}">${d}</button>`).join('')}</div></div>
+      <div class="field"><label for="rs">사유 (회원에게 보여요)</label><select class="inp" id="rs"><option>광고·홍보 글</option><option>욕설·비방</option><option>도배</option><option>개인 연락처 공유</option></select></div>
+      <div class="btns"><button class="btn" type="button" data-close>닫기</button><button class="btn primary" type="button" data-x>적용하기</button></div>`,ev=>{const pc=ev.target.closest('[data-per]');if(pc){layer.querySelectorAll('[data-per]').forEach(b=>b.setAttribute('aria-pressed',b===pc));return}
+      if(!ev.target.closest('[data-x]'))return;const per=layer.querySelector('[data-per][aria-pressed="true"]').dataset.per;const m=MEMBERS.find(m=>m.nick===nick);
+      if(per==='영구 차단'){m.status='ban';delete m.until}else{m.status='stop';const d=new Date(TODAY);d.setDate(d.getDate()+parseInt(per));m.until=fmtD(d)}m.reason=$('#rs').value;closeLayer();refreshAdm();toast(`${nick} 님을 ${per==='영구 차단'?'영구 차단':per+' 정지'}했어요`)})}
+  if(x=q('[data-unsus]')){const m=MEMBERS.find(m=>m.nick===x.dataset.unsus);m.status='ok';delete m.until;delete m.reason;refreshAdm();return toast(`${m.nick} 님 제한을 풀었어요`)}
+  if(x=q('[data-blind]')){const p=POSTS.find(p=>p.id===+x.dataset.blind);p.blind=!p.blind;refreshAdm();return toast(p.blind?'글을 가렸어요. 목록에는 \'가린 글\'로 보여요':'글을 다시 보이게 했어요')}
+  if(x=q('[data-cblind]')){const [pid,cid]=x.dataset.cblind.split(':').map(Number);const c=POSTS.find(p=>p.id===pid).comments.find(c=>c.id===cid);c.blind=!c.blind;refreshAdm();return toast(c.blind?'댓글을 가렸어요':'댓글을 다시 보이게 했어요')}
+  if(x=q('[data-del]')){const p=POSTS.find(p=>p.id===+x.dataset.del);return sheet(`<h3>이 글을 삭제할까요?</h3><p>'${esc(p.title)}'<br>삭제한 글은 회원에게 보이지 않아요. 실제 서비스에서는 30일 동안 복구할 수 있게 둬요.</p><div class="btns"><button class="btn" type="button" data-close>닫기</button><button class="btn primary" type="button" data-x style="background:var(--bad);border-color:var(--bad)">삭제하기</button></div>`,ev=>{if(ev.target.closest('[data-x]')){p.deleted=true;closeLayer();vAdmin();toast('글을 삭제했어요')}})}
+  if(x=q('[data-pin]')){const p=POSTS.find(p=>p.id===+x.dataset.pin);p.notice=!p.notice;refreshAdm();return toast(p.notice?'공지로 고정했어요. 홈 맨 위에 보여요':'공지 고정을 풀었어요')}
+  if(x=q('[data-bup]')){const i=+x.dataset.bup;[BANNERS[i-1],BANNERS[i]]=[BANNERS[i],BANNERS[i-1]];S.slide=0;return refreshAdm()}
+  if(x=q('[data-bdn]')){const i=+x.dataset.bdn;[BANNERS[i+1],BANNERS[i]]=[BANNERS[i],BANNERS[i+1]];S.slide=0;return refreshAdm()}
+  if(x=q('[data-bon]')){const b=BANNERS[+x.dataset.bon];b.on=!b.on;S.slide=0;refreshAdm();return toast(b.on?'배너를 켰어요':'배너를 껐어요')}
+  if(x=q('[data-bdel]')){const i=+x.dataset.bdel;const b=BANNERS[i];return sheet(`<h3>배너를 삭제할까요?</h3><p>'${esc(b.title)}'</p><div class="btns"><button class="btn" type="button" data-close>닫기</button><button class="btn primary" type="button" data-x style="background:var(--bad);border-color:var(--bad)">삭제하기</button></div>`,ev=>{if(ev.target.closest('[data-x]')){BANNERS.splice(i,1);S.slide=0;closeLayer();refreshAdm();toast('배너를 삭제했어요')}})}
+  if(q('[data-badd]')){const title=$('#bt').value.trim();if(!S._bpick||!title){$('#be').hidden=false;return}
+    BANNERS.push({id:Date.now(),title,sub:'',img:S._bpick,link:$('#bl').value,on:true});S._bpick=null;refreshAdm();return toast('배너를 추가했어요. 홈에서 확인해 보세요')}
+}
+
+
+/* ---------- 공통 클릭 (data-go, data-link, 슬라이드) ---------- */
+view.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]');if(g){e.stopPropagation();return go(g.dataset.go)}
+  const l=e.target.closest('[data-link]');if(l)return go(l.dataset.link.replace('#',''));
+  const s=e.target.closest('[data-sl]');if(s){slideBy(+s.dataset.sl);startAuto();return}
+  if(e.target.closest('[data-act="write"]')){const r=route();const k=r.name==='board'?r.arg:'lounge';const st=S.boardState[k];const B=BOARDS[k];startWrite(k,B.regions[st.region],B.cats?B.cats[st.cat]:'')}
+},true);
+
+/* ---------- 바로가기 (PC 왼쪽 / 휴대폰 시트) ---------- */
+const SHORT=[['home','홈','배너·세 게시판·인기글'],['board/abroad','해외여행 게시판','지역 탭·분류 칩'],['post/2','글 보기','사진·좋아요·댓글·답글'],['board/lounge','여행 라운지','사진 갤러리 포함'],['search','검색','검색어 강조·0건 화면'],['write','글쓰기','사진 여러 장 미리보기'],['join','가입','카카오·네이버·성인 확인'],['my','내 정보','내 글·댓글·탈퇴'],['admin','관리자','회원·신고·공지·배너']];
+function goShort(h){closeLayer();if(h==='write'){if(!S.user)login('은퇴후여행');return startWrite('abroad','다낭·호이안','후기')}if(h==='join'){S.user=null;S.join={step:'start',via:'',birth:null,agree:{}}}if(h==='my'&&!S.user)login('은퇴후여행');go(h)}
+$('#sideNav').innerHTML=SHORT.map(([h,l,d])=>`<button class="go" type="button" data-h="${h}"><span>${l}</span><small>${d}</small></button>`).join('');
+$('#sideNav').addEventListener('click',e=>{const b=e.target.closest('[data-h]');if(b)goShort(b.dataset.h)});
+$('#mNav').addEventListener('click',()=>sheet(`<h3>화면 목록</h3><div>${SHORT.map(([h,l,d])=>`<button class="go" type="button" data-h="${h}" style="display:flex;justify-content:space-between;align-items:center;width:100%;min-height:52px;border:0;border-bottom:1px solid var(--line-2);background:none;text-align:left;font-size:1rem"><span>${l}</span><small style="color:var(--mut);font-size:.82rem">${d}</small></button>`).join('')}</div><div class="btns one" style="margin-top:12px"><button class="btn" type="button" data-close>닫기</button></div>`,e=>{const b=e.target.closest('[data-h]');if(b)goShort(b.dataset.h)}));
+
+renderSideFs();S.hist.push(location.hash||'#home');render();
+</script>
+</body>
+</html>
