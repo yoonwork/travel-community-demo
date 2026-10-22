@@ -499,24 +499,24 @@ body{background:var(--paper)}
 .banner .count button{width:40px;height:40px}
 
 /* 세 게시판: 먹색·흰색·솔잎 카드, 배너 위로 겹쳐 올림 (무드보드 17·18·8) */
-.boards{position:relative;z-index:2;display:grid;grid-template-columns:1.08fr 1fr;gap:10px;margin:-52px 16px 0}
+.boards{position:relative;display:grid;grid-template-columns:1.08fr 1fr;gap:10px;margin:12px 16px 0}
 .boards.flat{margin-top:16px}
 .bc{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;min-height:122px;padding:16px;border:0;border-radius:22px;text-align:left;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}
 .bc:hover{transform:translateY(-3px)}
-.boards .bc{outline:4px solid var(--paper)}
-.bc.dark{grid-row:span 2;justify-content:flex-start;min-height:254px;background:var(--ink-0);color:#fff;box-shadow:0 20px 40px -12px rgba(22,24,27,.45)}
-.bc.light{background:#fff;color:var(--ink-0);box-shadow:0 14px 30px -14px rgba(22,24,27,.22)}
+
+.bc.dark{grid-row:span 2;justify-content:flex-start;min-height:254px;background:var(--ink-0);color:#fff}.bc.dark::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(14,16,18,.72) 0%,rgba(14,16,18,.15) 45%,rgba(14,16,18,0) 70%)}
+.bc.light{background:#fff;color:var(--ink-0)}
 .bc.pine{background:var(--brand);color:#fff}
-.bc-img{position:absolute;left:0;right:0;bottom:0;width:100%;height:64%;object-fit:cover;-webkit-mask-image:linear-gradient(180deg,transparent,#000 48%);mask-image:linear-gradient(180deg,transparent,#000 48%)}
-.bc-t{position:relative;z-index:1;display:flex;flex-direction:column;gap:4px}
+.bc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bc-t{position:relative;z-index:2;display:flex;flex-direction:column;gap:4px}
 .bc-t b{font-size:1.24rem;line-height:1.2;font-weight:800;letter-spacing:-.035em}
 .bc-t small{display:inline-flex;align-items:center;gap:5px;font-size:.86rem;font-weight:600;opacity:.86}
-.bc-t em{font-style:normal;font-family:var(--num);font-weight:700}
+.bc-t em{font-style:normal;font-weight:800}
 .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sun)}
 .bc.light .dot{background:#D99A00}
 .bc-go{position:absolute;right:12px;top:12px;z-index:1;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.16)}
 .bc.light .bc-go{background:var(--paper)}
-.bc.dark .bc-go{top:auto;bottom:14px;right:14px;width:44px;height:44px;background:#fff;color:var(--ink-0)}
+.bc.dark .bc-go{top:auto;bottom:14px;right:14px;z-index:2;width:44px;height:44px;background:#fff;color:var(--ink-0)}
 .bc-go .ic{width:18px;height:18px;stroke-width:2.4}
 .bc-ic{display:grid;place-items:center;width:42px;height:42px;margin-bottom:auto;border-radius:13px;background:var(--paper);color:var(--ink-0)}
 .bc.pine .bc-ic{background:rgba(255,255,255,.14);color:#fff}
@@ -525,7 +525,7 @@ body{background:var(--paper)}
 /* 공지: 비행기표 모양 (무드보드 9) */
 .ticket{position:relative;display:flex;align-items:stretch;width:calc(100% - 32px);min-height:72px;margin:14px 16px 0;padding:0;border:0;border-radius:18px;background:#fff;color:var(--ink-0);text-align:left}
 .ticket .stub{display:grid;place-items:center;flex:none;width:74px;border-right:2px dashed var(--paper-2);color:var(--brand);font-weight:800;font-size:.92rem}
-.ticket::before,.ticket::after{content:"";position:absolute;left:64px;width:20px;height:20px;border-radius:50%;background:var(--paper)}
+.ticket::before,.ticket::after{content:none}
 .ticket::before{top:-10px}.ticket::after{bottom:-10px}
 .ticket .tt{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:12px 8px 12px 16px}
 .ticket .tt b{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
