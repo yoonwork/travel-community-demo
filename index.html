@@ -16,12 +16,12 @@
   --brand-tint:#E4EEE8; --brand-tint-2:#C9DED3; --ring:0 0 0 3px rgba(30,90,70,.3); --on-brand:#FFFFFF;
   --paper:#F4F1EA; --paper-2:#EAE5DA; --ink-0:#16181B; --sun:#F3C14B;
   --num:"Space Grotesk",var(--font);
-  --bg:#F5F3EE; --card:#FFFFFF; --soft:#F7F8FA; --track:#ECEFF3; --line:#DDE1E6; --line-2:#E8EBEF;
+  --bg:#F5F3EE; --card:#FFFFFF; --soft:#FAF8F3; --track:#EFE9DE; --line:#DDE1E6; --line-2:#E8EBEF;
   --ink:#141A22; --ink-2:#3D4754; --mut:#56606D; --mut-2:#9AA3AE;
   --ok:#127A4F; --ok-bg:#E3F6ED; --ok-dot:#1FA971;
   --warn:#7A5600; --warn-bg:#FFF3D4; --warn-dot:#F2B01E;
   --bad:#BF2930; --bad-bg:#FFE3E4; --bad-dot:#E5484D;
-  --neu:#4E5968; --neu-bg:#F0F2F5; --neu-dot:#8B95A1;
+  --neu:#4E5968; --neu-bg:#EFEAE1; --neu-dot:#8B95A1;
   --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
   --r-sm:8px; --r-md:12px; --r-lg:20px; --r-xl:28px; --r-pill:999px;
   --sh-pop:0 2px 6px rgba(16,24,40,.06),0 12px 32px rgba(16,24,40,.14);
@@ -34,7 +34,7 @@ html{font-size:17px;-webkit-text-size-adjust:100%}
 html[data-fs="l"]{font-size:19px}
 html[data-fs="xl"]{font-size:21px}
 *{box-sizing:border-box}
-body{margin:0;font-family:var(--font);color:var(--ink);background:#E6E9EE;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+body{margin:0;font-family:var(--font);color:var(--ink);background:#E8E2D6;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 img{display:block;max-width:100%}
@@ -242,7 +242,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
 .social{display:grid;gap:12px;padding:24px 20px}
 .sbtn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;border-radius:var(--r-md);border:0;font-weight:700;font-size:1.06rem}
 .sbtn.kakao{background:#FEE500;color:#191600}
-.sbtn.naver{background:#03C75A;color:#fff}
+.sbtn.naver{background:#03C75A;color:#06210F}
 .sbtn.mail{background:var(--card);border:1px solid var(--line);color:var(--ink)}
 .sbtn .mk{display:grid;place-items:center;width:24px;height:24px;font-weight:800;font-size:.9rem}
 .steps{display:flex;gap:6px;padding:16px 20px 0}
@@ -334,9 +334,9 @@ mark{background:#FFF0B3;color:inherit;border-radius:3px;padding:0 1px}
 body{background:#EEF0F3}
 /* 흰 바탕 + 8px 회색 띠로 섹션 나누기 (당근·토스) */
 .scroller[data-v="home"],.scroller[data-v="board"],.scroller[data-v="post"],.scroller[data-v="search"],.scroller[data-v="write"]{background:#fff}
-.gap{height:8px;background:#F2F4F6;margin-top:20px}
+.gap{height:8px;background:#F1ECE3;margin-top:20px}
 .appbar{border-bottom-color:transparent}
-.fsbtn{border:0;background:#F2F4F6;color:var(--ink-2);min-height:40px}
+.fsbtn{border:0;background:#F1ECE3;color:var(--ink-2);min-height:40px}
 .fsbtn:hover{background:#E8EBEF}
 .sec-h{margin:20px 16px 4px}
 .sec-h h2{font-size:1.24rem;letter-spacing:-.02em}
@@ -350,7 +350,7 @@ body{background:#EEF0F3}
 /* 홈 바로가기: 둥근 아이콘 + 글자 (마이리얼트립 아이콘 줄 · 네이버 카페 '내 카페' · 시놀) */
 .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:20px 12px 0}
 .qk{display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px 0 8px;border:0;background:none;border-radius:16px;min-height:var(--tap)}
-.qk:hover{background:#F7F8FA}
+.qk:hover{background:#FAF8F3}
 .qk .ci{display:grid;place-items:center;width:60px;height:60px;border-radius:50%}
 .qk .ci .ic{width:28px;height:28px;stroke-width:2}
 .qk-abroad .ci{background:#E8F1FF;color:#1D5FD8}
@@ -366,7 +366,7 @@ body{background:#EEF0F3}
 
 /* 인기글 (네이버 카페 '실시간 HOT') */
 .rank{margin:0;padding:0;border:0;border-radius:0;background:none}
-.rank li+li{border-top:1px solid #F0F2F5}
+.rank li+li{border-top:1px solid #EFEAE1}
 .rank button{padding:14px 16px;min-height:88px;align-items:flex-start}
 .rank .no{width:22px;padding-top:1px;font-size:1.12rem;color:var(--ink);font-weight:800}
 .rank li:nth-child(-n+3) .no{color:var(--brand-text)}
@@ -374,20 +374,20 @@ body{background:#EEF0F3}
 .cnts{display:flex;gap:10px;margin-top:4px;color:var(--mut);font-size:.84rem;font-variant-numeric:tabular-nums}
 .cnts>span{display:inline-flex;align-items:center;gap:3px}
 .cnts .ic{width:16px;height:16px}
-.thm{position:relative;flex:none;border-radius:12px;overflow:hidden;background:#E6E9EE}
+.thm{position:relative;flex:none;border-radius:12px;overflow:hidden;background:#E8E2D6}
 .thm img{width:72px;height:72px;object-fit:cover;border-radius:0}
 .thm i{position:absolute;right:4px;bottom:4px;padding:0 6px;border-radius:6px;background:rgba(0,0,0,.55);color:#fff;font-style:normal;font-size:.72rem;font-weight:700;line-height:1.6}
 
 /* 방금 올라온 글: 피드 카드 (네이버 카페 '구독') */
 .feed{display:flex;flex-direction:column}
-.fcard{display:flex;flex-direction:column;gap:6px;width:100%;padding:16px;border:0;border-bottom:1px solid #F0F2F5;background:none;text-align:left}
+.fcard{display:flex;flex-direction:column;gap:6px;width:100%;padding:16px;border:0;border-bottom:1px solid #EFEAE1;background:none;text-align:left}
 .fcard:last-child{border-bottom:0}
 .fhead{display:flex;align-items:center;gap:10px;margin-bottom:4px}
 .fhead b{display:block;font-weight:700;font-size:.96rem;line-height:1.3}
 .fhead small{display:block;color:var(--mut);font-size:.84rem;line-height:1.4}
 .fcard strong{font-size:1.12rem;line-height:1.45;font-weight:700;letter-spacing:-.01em}
 .pv{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--ink-2);font-size:.96rem;line-height:1.55}
-.fimg{position:relative;display:block;margin-top:6px;border-radius:14px;overflow:hidden;background:#E6E9EE}
+.fimg{position:relative;display:block;margin-top:6px;border-radius:14px;overflow:hidden;background:#E8E2D6}
 .fimg img{width:100%;aspect-ratio:16/10;object-fit:cover}
 .fimg i{position:absolute;right:10px;bottom:10px;padding:2px 9px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;font-style:normal;font-size:.8rem;font-weight:600}
 .ffoot{display:flex;align-items:center;gap:14px;margin-top:6px;color:var(--mut);font-size:.9rem}
@@ -404,14 +404,14 @@ body{background:#EEF0F3}
 .utabs button[aria-pressed="true"]{color:var(--ink);font-weight:800}
 .utabs button[aria-pressed="true"]::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:3px;border-radius:2px;background:var(--ink)}
 .board-head .chips{padding:12px 16px 14px}
-.chip{border:0;background:#F2F4F6;color:var(--ink-2)}
+.chip{border:0;background:#F1ECE3;color:var(--ink-2)}
 .chip[aria-pressed="true"]{background:var(--ink)}
 
 /* 글 목록 한 줄 (당근 동네생활) */
-.list>li{border-bottom:1px solid #F0F2F5}
+.list>li{border-bottom:1px solid #EFEAE1}
 .prow{position:relative;padding:16px 16px 14px;min-height:96px}
 .prow .meta-top{margin-bottom:6px}
-.ctag{display:inline-flex;align-items:center;height:24px;padding:0 7px;border-radius:6px;background:#F2F4F6;color:var(--ink-2);font-size:.78rem;font-weight:600}
+.ctag{display:inline-flex;align-items:center;height:24px;padding:0 7px;border-radius:6px;background:#F1ECE3;color:var(--ink-2);font-size:.78rem;font-weight:600}
 .prow b{font-weight:700;font-size:1.08rem;letter-spacing:-.01em}
 .prow .pv{-webkit-line-clamp:1;margin-top:2px;font-size:.94rem;color:var(--mut)}
 .prow .meta{gap:0;margin-top:6px;font-size:.86rem}
@@ -438,7 +438,7 @@ body{background:#EEF0F3}
 .crumb{display:inline-flex;align-items:center;gap:2px;color:var(--brand-text);font-weight:600;font-size:.9rem}
 .crumb .ic{width:15px;height:15px;stroke-width:2.2}
 .post h2{margin-top:8px;font-size:1.45rem;letter-spacing:-.02em}
-.author{margin:14px 0 18px;padding-bottom:16px;border-bottom-color:#F0F2F5}
+.author{margin:14px 0 18px;padding-bottom:16px;border-bottom-color:#EFEAE1}
 .ccount{display:inline-flex;align-items:center;gap:4px;color:var(--mut);font-size:.9rem}
 .ccount .ic{width:18px;height:18px}
 .body{font-size:1.08rem;line-height:1.75;color:#222A33}
@@ -446,12 +446,12 @@ body{background:#EEF0F3}
 .scroller[data-v="write"] .bottom-cta{background:linear-gradient(180deg,rgba(255,255,255,0),#fff 24%)}
 .photos img{aspect-ratio:auto;max-height:520px}
 .photos button{border-radius:14px}
-.actions{align-items:center;border-top:1px solid #F0F2F5;margin-top:8px}
-.like{border:0;background:#F2F4F6}
+.actions{align-items:center;border-top:1px solid #EFEAE1;margin-top:8px}
+.like{border:0;background:#F1ECE3}
 .rep{min-height:var(--tap);padding:0 8px;border:0;background:none;color:var(--mut);font-size:.92rem;text-decoration:underline;text-underline-offset:3px}
-.comments{margin-top:0;border-top:8px solid #F2F4F6}
+.comments{margin-top:0;border-top:8px solid #F1ECE3}
 .comments h3{font-size:1.16rem}
-.cmt{border-top-color:#F0F2F5}
+.cmt{border-top-color:#EFEAE1}
 .cbox{border:0;background:#F5F6F8;border-radius:16px}
 .cbox textarea{border-color:#E3E6EA}
 .reply{border-left:0;padding-left:0;margin-left:44px}
@@ -459,7 +459,7 @@ body{background:#EEF0F3}
 /* 글쓰기·검색 입력: 회색 채움 (토스식) */
 .scroller[data-v="write"] .inp,.search-in .inp{background:#F5F6F8;border-color:transparent}
 .scroller[data-v="write"] .inp:focus,.search-in .inp:focus{background:#fff;border-color:var(--brand)}
-.scroller[data-v="write"] .seg{background:#F2F4F6}
+.scroller[data-v="write"] .seg{background:#F1ECE3}
 .thumbs label.add{background:#F5F6F8;border-color:#D9DDE3}
 .search-in{border-bottom:0}
 
@@ -628,6 +628,72 @@ body{background:var(--paper)}
   .co::before{content:"";position:absolute;left:-54px;top:27px;width:54px;border-top:2px dotted rgba(22,24,27,.5)}
   .co::after{content:"";position:absolute;left:-58px;top:24px;width:8px;height:8px;border-radius:50%;background:var(--ink-0)}
 }
+
+/* ===== 4차: 밝고 차분하게, 사진 카드 위주 (의뢰인 참고 이미지 — 크림 바탕·흰 카드·검정은 작은 버튼과 얇은 바닥만) ===== */
+:root{--paper:#F7F4EE;--paper-2:#EFE9DE;--bg:#F7F4EE;--mut-2:#646B74;--line:#E3DDD1;--line-2:#ECE7DD}
+.demobar{background:var(--paper-2);color:var(--ink-0)}
+.demobar span{color:#454B53}
+.demobar button{border-color:#B9B09F;color:var(--ink-0)}
+.chip{background:#F1ECE3}
+.chip[aria-pressed="true"]{background:var(--ink-0);color:#fff}
+
+/* 첫 화면: 폭 넓은 사진 한 장, 글씨는 짧게 + 어두운 덧칠 */
+.hello{padding:10px 20px 4px}
+.banner{margin:16px 12px 0;aspect-ratio:4/5;border-radius:24px}
+.banner .slide .txt{padding:120px 20px 22px;background:linear-gradient(180deg,rgba(10,12,14,0) 0,rgba(10,12,14,.6) 38%,rgba(10,12,14,.82) 100%)}
+.banner .slide .eb{height:28px;margin-bottom:10px;padding:0 12px;background:#fff;color:var(--ink-0);font-size:.8rem;font-weight:700}
+.banner .slide strong{font-size:1.24rem;line-height:1.3;font-weight:700;letter-spacing:-.025em;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+.banner .slide small{display:none}
+.banner .count{background:rgba(10,12,14,.7)}
+
+/* 게시판 고르기: 크기가 다른 사진 카드 + 흰 이름표 */
+.bsec{margin-top:40px}
+.bsec .sh{padding:0 20px 14px}
+.boards{grid-template-columns:1.12fr 1fr;grid-auto-rows:minmax(150px,auto);gap:10px;margin:0 12px}
+.bc{justify-content:flex-end;min-height:0;padding:10px;border-radius:22px;background:#2A2E33;color:var(--ink-0)}
+.bc.big{grid-row:span 2}
+.bc:hover .bc-img{transform:scale(1.04)}
+.bc-img{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.bc-t{align-self:flex-start;gap:0;padding:8px 13px 9px;border-radius:16px;background:#fff}
+.bc-t b{font-size:1.02rem;font-weight:800}
+.bc-t small{font-size:.8rem;font-weight:600;color:#454B53;opacity:1}
+
+/* 공지: 흰 줄 + 작은 검정 알약 */
+.ticket{margin:28px 16px 0;border-radius:20px}
+.ticket .stub{width:76px;border-right:1px solid var(--paper-2)}
+.ticket .stub em{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:999px;background:var(--ink-0);color:#fff;font-style:normal;font-size:.82rem;font-weight:700}
+
+/* 구역: 흰 바탕 / 연베이지 바탕 번갈아, 여백 넉넉히 */
+.hotsec,.fresh{margin:44px 0 0;padding:40px 0 28px;border-radius:0}
+.hotsec{background:#fff}
+.fresh{margin:0;background:var(--paper-2)}
+.sh .more{min-height:48px;padding:0 18px;background:var(--ink-0);color:#fff;font-size:.86rem}
+.hpills{display:flex;gap:8px;padding:0 18px 18px;overflow-x:auto;scrollbar-width:none}
+.hpills::-webkit-scrollbar{display:none}
+.hpills button{flex:none;min-height:48px;padding:0 18px;border:0;border-radius:999px;background:#F1ECE3;color:var(--ink-0);font-size:.92rem;font-weight:600}
+.hpills button[aria-pressed="true"]{background:var(--ink-0);color:#fff}
+.top3 button::before{content:none}
+.top3 .no{left:12px;top:12px;display:inline-flex;align-items:center;height:30px;padding:0 11px;border-radius:999px;background:#fff;color:var(--ink-0);font-family:var(--font);font-size:.82rem;font-weight:800;letter-spacing:0;text-shadow:none}
+.top3 li:first-child .no{color:var(--ink-0)}
+.top3 .pc{background:rgba(10,12,14,.72)}
+.top3 .cap{padding:80px 16px 16px;background:linear-gradient(180deg,rgba(10,12,14,0) 0,rgba(10,12,14,.66) 40%,rgba(10,12,14,.86) 100%)}
+.top3 .cap small{color:rgba(255,255,255,.92)}
+.top3 .cnts{color:#fff}
+.hotsec .rank li{border-top-color:#EFEAE1}
+.fresh .fcard{border-bottom-color:rgba(22,24,27,.09)}
+.fresh .ava.sm{background:#fff}
+.fresh .fimg{background:#E3DCCF}
+
+/* 바닥: 얇은 검정 한 줄 */
+.foot{padding:28px 20px 0}
+.foot p{color:var(--mut)}
+.fbar{display:flex;align-items:center;gap:10px;margin:22px -20px 0;padding:12px 20px 14px;background:var(--ink-0);color:#fff;font-size:.82rem;white-space:nowrap}
+.fbar span{overflow:hidden;text-overflow:ellipsis;color:#D8D3CA}
+.top3 .cap small{color:#fff}
+.gallery .cnt,.thm i,.fimg i{background:rgba(10,12,14,.75)}
+@media (min-width:900px){
+  .demobar{background:var(--paper-2);border-top:0}
+}
 </style>
 </head>
 <body>
@@ -663,7 +729,6 @@ body{background:var(--paper)}
     <button type="button" class="co" data-h="join" style="top:58%"><i>3</i><b>만 19세 이상만 가입하기</b><small>카카오·네이버로 시작, 생년월일로 나이 확인</small></button>
     <button type="button" class="co" data-h="board/abroad" style="top:80%"><i>4</i><b>게시판 세 곳 고르기</b><small>해외여행 · 국내여행 · 여행 라운지, 지역 탭과 분류 칩</small></button>
   </aside>
-  <div class="wm" aria-hidden="true">NOLPAN</div>
 </div>
 
 <script>
@@ -822,28 +887,30 @@ function vHome(){
   const bs=BANNERS.filter(b=>b.on);
   if(S.slide>=bs.length)S.slide=0;
   const notices=POSTS.filter(p=>p.notice&&vis(p)&&!p.blind);
-  const hot=POSTS.filter(p=>vis(p)&&!p.blind&&!p.notice).map(p=>({p,s:p.likes*3+ncm(p)*5+p.views/20-p.ago/30})).sort((a,b)=>b.s-a.s).slice(0,7).map(x=>x.p);
+  const HF=S.hotF||'all';
+  const hot=POSTS.filter(p=>vis(p)&&!p.blind&&!p.notice&&(HF==='all'||p.board===HF)).map(p=>({p,s:p.likes*3+ncm(p)*5+p.views/20-p.ago/30})).sort((a,b)=>b.s-a.s).slice(0,7).map(x=>x.p);
   const cnt=k=>POSTS.filter(p=>p.board===k&&vis(p)&&p.ago<1440).length;
   const total=['abroad','domestic','lounge'].reduce((a,k)=>a+cnt(k),0);
   const D=['일','월','화','수','목','금','토'];
   const hh=String(TODAY.getHours()).padStart(2,'0');
-  const bcard=(k,cls,extra='')=>{const b=BOARDS[k];return `<button class="bc ${cls}" type="button" data-go="board/${k}">${extra}<span class="bc-t"><b>${b.name}</b><small><i class="dot"></i>오늘 새 글 <em data-count="${cnt(k)}">${cnt(k)}</em></small></span><span class="bc-go">${ic('right')}</span></button>`};
+  const bcard=(k,cls,img)=>{const b=BOARDS[k];return `<button class="bc ${cls}" type="button" data-go="board/${k}"><img class="bc-img" src="${U(img,600)}" alt="" loading="lazy"><span class="bc-t"><b>${b.name}</b><small>오늘 새 글 <em data-count="${cnt(k)}">${cnt(k)}</em></small></span></button>`};
   view.innerHTML=`
   <section class="hello rv"><span class="today">${TODAY.getMonth()+1}월 ${TODAY.getDate()}일 ${D[TODAY.getDay()]}요일 · 오늘 새 글 <b>${total}</b></span><h2>오늘은 <em>어디로</em><br>떠나 볼까요?</h2></section>
   ${bs.length?`<section class="banner" aria-roledescription="carousel" aria-label="알림 배너">
     <div class="track" id="track" style="transform:translateX(-${S.slide*100}%)">${bs.map((b,i)=>`<button class="slide" type="button" data-link="${esc(b.link)}" aria-label="${esc(b.title)}" ${i!==S.slide?'tabindex="-1"':''}><img src="${U(b.img,900)}" alt="" ${i?'loading="lazy"':''}><span class="txt"><span class="eb">놀판 추천</span><strong>${esc(b.title)}</strong><small>${esc(b.sub)}</small></span></button>`).join('')}</div>
     <div class="count"><button type="button" data-sl="-1" aria-label="이전 배너">${ic('left')}</button><span id="slno">${S.slide+1} / ${bs.length}</span><button type="button" data-sl="1" aria-label="다음 배너">${ic('right')}</button></div>
   </section>`:''}
-  <nav class="boards${bs.length?'':' flat'}" aria-label="게시판">
-    ${bcard('abroad','dark',`<img class="bc-img" src="${U(IMG.elnido,600)}" alt="" loading="lazy">`)}
-    ${bcard('domestic','light',`<span class="bc-ic">${ic('pin')}</span>`)}
-    ${bcard('lounge','pine',`<span class="bc-ic">${ic('chat')}</span>`)}
-  </nav>
-  ${notices.map(n=>`<button class="ticket rv" type="button" data-go="post/${n.id}"><span class="stub">공지</span><span class="tt"><b>${esc(n.title.replace('[공지] ',''))}</b><small>놀판지기 · 꼭 읽어 주세요</small></span>${ic('right')}</button>`).join('')}
+  <section class="bsec rv"><div class="sh row"><h2>게시판 고르기</h2></div><nav class="boards" aria-label="게시판">
+    ${bcard('abroad','big',IMG.elnido)}
+    ${bcard('domestic','sm',IMG.hanok)}
+    ${bcard('lounge','sm',IMG.street)}
+  </nav></section>
+  ${notices.map(n=>`<button class="ticket rv" type="button" data-go="post/${n.id}"><span class="stub"><em>공지</em></span><span class="tt"><b>${esc(n.title.replace('[공지] ',''))}</b><small>놀판지기 · 꼭 읽어 주세요</small></span>${ic('right')}</button>`).join('')}
   <section class="hotsec rv"><div class="sh"><span class="updated">${hh}:00 기준 · 좋아요·댓글 많은 순</span><h2>실시간 인기글</h2></div>
-  <ol class="top3">${hot.slice(0,3).map((p,i)=>`<li><button type="button" data-go="post/${p.id}" class="${p.photos[0]?'':'nophoto'}">${p.photos[0]?`<img src="${U(p.photos[0],600)}" alt="" loading="lazy">`:''}<span class="no">${i+1}</span>${p.photos.length>1?`<i class="pc">${ic('image')}${p.photos.length}</i>`:''}<span class="cap"><small>${BOARDS[p.board].name} · ${esc(p.region)}</small><b>${esc(p.title)}</b><span class="cnts"><span>${ic('heart')}${p.likes}</span><span>${ic('chat')}${ncm(p)}</span></span></span></button></li>`).join('')}</ol>
+  <div class="hpills" role="group" aria-label="인기글 게시판 고르기">${[['all','전체'],['abroad','해외여행'],['domestic','국내여행'],['lounge','라운지']].map(([k,n])=>`<button type="button" data-hf="${k}" aria-pressed="${HF===k}">${n}</button>`).join('')}</div>
+  <ol class="top3">${hot.slice(0,3).map((p,i)=>`<li><button type="button" data-go="post/${p.id}" class="${p.photos[0]?'':'nophoto'}">${p.photos[0]?`<img src="${U(p.photos[0],600)}" alt="" loading="lazy">`:''}<span class="no">${i+1}위</span>${p.photos.length>1?`<i class="pc">${ic('image')}${p.photos.length}</i>`:''}<span class="cap"><small>${BOARDS[p.board].name} · ${esc(p.region)}</small><b>${esc(p.title)}</b><span class="cnts"><span>${ic('heart')}${p.likes}</span><span>${ic('chat')}${ncm(p)}</span></span></span></button></li>`).join('')}</ol>
   <ol class="rank" start="4">${hot.slice(3).map((p,i)=>`<li><button type="button" data-go="post/${p.id}"><span class="no">${i+4}</span><span class="t"><b>${esc(p.title)}</b><small>${BOARDS[p.board].name} · ${esc(p.region)}</small><span class="cnts"><span>${ic('eye')}${p.views.toLocaleString()}</span><span>${ic('heart')}${p.likes}</span><span>${ic('chat')}${ncm(p)}</span></span></span>${p.photos[0]?`<span class="thm"><img src="${U(p.photos[0],200)}" alt="" loading="lazy">${p.photos.length>1?`<i>${p.photos.length}</i>`:''}</span>`:''}</button></li>`).join('')}</ol></section>
-  <section class="fresh rv"><div class="sh row"><h2>방금 올라온 글</h2><button class="more" type="button" data-go="board/lounge">라운지 전체</button></div>
+  <section class="fresh rv"><div class="sh row"><h2>방금 올라온 글</h2><button class="more" type="button" data-go="board/lounge">라운지 전체 보기</button></div>
   <div class="feed">${POSTS.filter(p=>vis(p)&&!p.notice&&!p.blind&&p.reports<3).sort((a,b)=>a.ago-b.ago).slice(0,4).map(feedHTML).join('')}</div></section>
   ${foot()}`;
   startAuto();bindSwipe();reveal();
@@ -854,7 +921,7 @@ function reveal(){const els=view.querySelectorAll('.rv');if(RM.matches||!('Inter
   const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{root:view,threshold:.08});
   els.forEach(e=>io.observe(e));
   view.querySelectorAll('[data-count]').forEach(el=>{const n=+el.dataset.count;let i=0;const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/700);el.textContent=Math.round(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};el.textContent='0';requestAnimationFrame(f)})}
-function foot(){return `<footer class="foot"><span class="fwm" aria-hidden="true">놀판</span><p>놀판 (예시)는 제안용 데모예요. 실제 회사·서비스와 관계가 없어요. 사진: Unsplash 무료 이미지. 만 19세 이상만 가입할 수 있는 커뮤니티를 가정했어요.</p></footer>`}
+function foot(){return `<footer class="foot"><p>놀판 (예시)는 제안용 데모예요. 실제 회사·서비스와 관계가 없어요. 사진: Unsplash 무료 이미지. 만 19세 이상만 가입할 수 있는 커뮤니티를 가정했어요.</p><div class="fbar"><b>놀판 (예시)</b><span>제안용 데모 · 그누보드5 테마 기준</span></div></footer>`}
 let autoT;function startAuto(){clearInterval(autoT);autoT=setInterval(()=>{if(route().name!=='home'||layer.children.length)return;slideBy(1)},5000)}
 function slideBy(d){const n=BANNERS.filter(b=>b.on).length;if(!n)return;S.slide=(S.slide+d+n)%n;const t=$('#track');if(!t)return;t.style.transform=`translateX(-${S.slide*100}%)`;$('#slno').textContent=`${S.slide+1} / ${n}`;t.querySelectorAll('.slide').forEach((s,i)=>s.tabIndex=i===S.slide?0:-1)}
 function bindSwipe(){const b=view.querySelector('.banner');if(!b)return;let x0=null;b.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});b.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){slideBy(dx<0?1:-1);startAuto()}x0=null})}
@@ -1164,6 +1231,7 @@ view.addEventListener('click',e=>{
   const g=e.target.closest('[data-go]');if(g){e.stopPropagation();return go(g.dataset.go)}
   const l=e.target.closest('[data-link]');if(l)return go(l.dataset.link.replace('#',''));
   const s=e.target.closest('[data-sl]');if(s){slideBy(+s.dataset.sl);startAuto();return}
+  const hf=e.target.closest('[data-hf]');if(hf){S.hotF=hf.dataset.hf;const k=view.scrollTop;vHome();view.scrollTop=k;view.querySelectorAll('.rv').forEach(x=>x.classList.add('in'));return}
   if(e.target.closest('[data-act="write"]')){const r=route();const k=r.name==='board'?r.arg:'lounge';const st=S.boardState[k];const B=BOARDS[k];startWrite(k,B.regions[st.region],B.cats?B.cats[st.cat]:'')}
 },true);
 
