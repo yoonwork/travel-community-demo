@@ -5,14 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>놀판 (예시) — 여행 커뮤니티 제안용 데모</title>
 <meta name="description" content="해외여행·국내여행·여행 라운지 게시판, 성인 확인 가입, 관리자 화면까지 눌러 볼 수 있는 제안용 데모예요. 실제 서비스가 아니에요.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231D5FD8'/%3E%3Ctext x='16' y='22' font-size='17' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'%3E놀%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231E5A46'/%3E%3Ctext x='16' y='22' font-size='17' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'%3E놀%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
 <style id="tokens">
 :root{
   color-scheme: light;
-  --brand:#1D5FD8; --brand-hover:#174FB8; --brand-press:#123F94; --brand-text:#174FB8;
-  --brand-tint:#EDF3FF; --brand-tint-2:#D6E3FF; --ring:0 0 0 3px rgba(29,95,216,.28); --on-brand:#FFFFFF;
-  --bg:#F2F4F7; --card:#FFFFFF; --soft:#F7F8FA; --track:#ECEFF3; --line:#DDE1E6; --line-2:#E8EBEF;
+  --brand:#1E5A46; --brand-hover:#174A3A; --brand-press:#113A2D; --brand-text:#1E5A46;
+  --brand-tint:#E4EEE8; --brand-tint-2:#C9DED3; --ring:0 0 0 3px rgba(30,90,70,.3); --on-brand:#FFFFFF;
+  --paper:#F4F1EA; --paper-2:#EAE5DA; --ink-0:#16181B; --sun:#F3C14B;
+  --num:"Space Grotesk",var(--font);
+  --bg:#F5F3EE; --card:#FFFFFF; --soft:#F7F8FA; --track:#ECEFF3; --line:#DDE1E6; --line-2:#E8EBEF;
   --ink:#141A22; --ink-2:#3D4754; --mut:#56606D; --mut-2:#9AA3AE;
   --ok:#127A4F; --ok-bg:#E3F6ED; --ok-dot:#1FA971;
   --warn:#7A5600; --warn-bg:#FFF3D4; --warn-dot:#F2B01E;
@@ -50,7 +54,7 @@ img{display:block;max-width:100%}
 }
 
 /* 데모 띠 */
-.demobar{flex:none;display:flex;align-items:center;gap:8px;min-height:40px;padding:4px 8px 4px 16px;background:#1E2530;color:#fff;font-size:14px;white-space:nowrap}
+.demobar{flex:none;display:flex;align-items:center;gap:8px;min-height:40px;padding:4px 8px 4px 16px;background:#16181B;color:#fff;font-size:14px;white-space:nowrap}
 .demobar span{overflow:hidden;text-overflow:ellipsis}
 .demobar b{font-weight:600}
 .demobar span{flex:1;color:#C9D0DA}
@@ -87,7 +91,7 @@ img{display:block;max-width:100%}
 .btn.primary{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
 .btn.primary:hover{background:var(--brand-hover)}
 .btn.primary:active{background:var(--brand-press)}
-.btn.primary:disabled{background:#B9C7E3;border-color:#B9C7E3;cursor:not-allowed}
+.btn.primary:disabled{background:#AFC4B9;border-color:#AFC4B9;cursor:not-allowed}
 .btn.danger{color:var(--bad);border-color:#F2C4C6}
 .btn.block{width:100%;min-height:56px;border-radius:var(--r-md);font-size:1.06rem}
 .btn.sm{min-height:44px;padding:0 14px;font-size:.9rem}
@@ -463,25 +467,189 @@ body{background:#EEF0F3}
 .side .box{border:0;border-radius:20px}
 .fsseg button{white-space:nowrap;padding:0 10px}
 .phone{border-color:#D9DDE3}
+
+/* ===== 3차: 종이 지도 위의 여행 잡지 (무드보드 refs3/travel/moodboard.jpg) ===== */
+body{background:var(--paper)}
+.logo{font-weight:800;letter-spacing:-.04em}
+.logo i{background:var(--ink-0);border-radius:11px}
+.scroller[data-v="home"]{background:var(--paper)}
+.phone:has(.scroller[data-v="home"]) .appbar{background:var(--paper)}
+.phone:has(.scroller[data-v="home"]) .fsbtn{background:#fff;color:var(--ink-0)}
+.fab{box-shadow:0 8px 20px rgba(30,90,70,.34)}
+.tabbar button[aria-current="page"]{color:var(--ink-0);font-weight:800}
+.tabbar button[aria-current="page"] .ic{box-sizing:border-box;width:58px;height:32px;padding:4px 17px;border-radius:999px;background:var(--brand-tint);color:var(--brand)}
+
+/* 인사말: 두 가지 색 큰 제목 (무드보드 11·5) */
+.hello{padding:6px 20px 2px}
+.hello .today{display:inline-flex;align-items:center;gap:4px;font-size:.86rem;font-weight:600;color:var(--ink-2)}
+.hello .today b{font-family:var(--num);font-weight:700;color:var(--brand)}
+.hello h2{margin:4px 0 0;font-size:1.9rem;line-height:1.22;font-weight:800;letter-spacing:-.045em;color:var(--ink-0)}
+.hello h2 em{font-style:normal;color:var(--brand)}
+
+/* 배너: 세로형 큰 사진 + 사진 위 큰 제목 (무드보드 4·8) */
+.banner{margin:16px 16px 0;border-radius:28px;aspect-ratio:5/6;background:#2A2E33}
+.banner .slide{background:#2A2E33}
+.banner .slide img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.banner:hover .slide img{transform:scale(1.03)}
+.banner .slide .txt{padding:110px 22px 76px;background:linear-gradient(180deg,rgba(10,12,14,0),rgba(10,12,14,.74) 62%)}
+.banner .slide .eb{display:inline-flex;align-items:center;height:30px;margin-bottom:12px;padding:0 12px;border-radius:999px;background:var(--sun);color:var(--ink-0);font-size:.82rem;font-weight:800}
+.banner .slide strong{font-size:1.72rem;line-height:1.22;font-weight:800;letter-spacing:-.04em}
+.banner .slide small{margin-top:8px;font-size:1rem;color:rgba(255,255,255,.88)}
+.banner .count{top:14px;right:14px;height:44px;padding:0 2px;background:rgba(10,12,14,.5);font-family:var(--num);font-weight:700}
+.banner .count button{width:40px;height:40px}
+
+/* 세 게시판: 먹색·흰색·솔잎 카드, 배너 위로 겹쳐 올림 (무드보드 17·18·8) */
+.boards{position:relative;z-index:2;display:grid;grid-template-columns:1.08fr 1fr;gap:10px;margin:-52px 16px 0}
+.boards.flat{margin-top:16px}
+.bc{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;min-height:122px;padding:16px;border:0;border-radius:22px;text-align:left;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}
+.bc:hover{transform:translateY(-3px)}
+.boards .bc{outline:4px solid var(--paper)}
+.bc.dark{grid-row:span 2;justify-content:flex-start;min-height:254px;background:var(--ink-0);color:#fff;box-shadow:0 20px 40px -12px rgba(22,24,27,.45)}
+.bc.light{background:#fff;color:var(--ink-0);box-shadow:0 14px 30px -14px rgba(22,24,27,.22)}
+.bc.pine{background:var(--brand);color:#fff}
+.bc-img{position:absolute;left:0;right:0;bottom:0;width:100%;height:64%;object-fit:cover;-webkit-mask-image:linear-gradient(180deg,transparent,#000 48%);mask-image:linear-gradient(180deg,transparent,#000 48%)}
+.bc-t{position:relative;z-index:1;display:flex;flex-direction:column;gap:4px}
+.bc-t b{font-size:1.24rem;line-height:1.2;font-weight:800;letter-spacing:-.035em}
+.bc-t small{display:inline-flex;align-items:center;gap:5px;font-size:.86rem;font-weight:600;opacity:.86}
+.bc-t em{font-style:normal;font-family:var(--num);font-weight:700}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sun)}
+.bc.light .dot{background:#D99A00}
+.bc-go{position:absolute;right:12px;top:12px;z-index:1;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.16)}
+.bc.light .bc-go{background:var(--paper)}
+.bc.dark .bc-go{top:auto;bottom:14px;right:14px;width:44px;height:44px;background:#fff;color:var(--ink-0)}
+.bc-go .ic{width:18px;height:18px;stroke-width:2.4}
+.bc-ic{display:grid;place-items:center;width:42px;height:42px;margin-bottom:auto;border-radius:13px;background:var(--paper);color:var(--ink-0)}
+.bc.pine .bc-ic{background:rgba(255,255,255,.14);color:#fff}
+.bc-ic .ic{width:22px;height:22px;stroke-width:2}
+
+/* 공지: 비행기표 모양 (무드보드 9) */
+.ticket{position:relative;display:flex;align-items:stretch;width:calc(100% - 32px);min-height:72px;margin:14px 16px 0;padding:0;border:0;border-radius:18px;background:#fff;color:var(--ink-0);text-align:left}
+.ticket .stub{display:grid;place-items:center;flex:none;width:74px;border-right:2px dashed var(--paper-2);color:var(--brand);font-weight:800;font-size:.92rem}
+.ticket::before,.ticket::after{content:"";position:absolute;left:64px;width:20px;height:20px;border-radius:50%;background:var(--paper)}
+.ticket::before{top:-10px}.ticket::after{bottom:-10px}
+.ticket .tt{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:12px 8px 12px 16px}
+.ticket .tt b{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ticket .tt small{color:var(--mut);font-size:.84rem}
+.ticket>.ic{align-self:center;margin-right:14px;color:var(--mut)}
+
+/* 흰 큰 판 (무드보드 5·11) */
+.hotsec,.fresh{margin:14px 12px 0;padding:22px 0 6px;border-radius:28px;background:#fff}
+.sh{padding:0 18px 14px}
+.sh h2{margin:2px 0 0;font-size:1.45rem;line-height:1.25;font-weight:800;letter-spacing:-.04em;color:var(--ink-0)}
+.sh.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sh .more{flex:none;min-height:44px;padding:0 16px;border:0;border-radius:999px;background:var(--paper);color:var(--ink-0);font-weight:700;font-size:.9rem}
+
+/* 인기 1~3위: 세로 사진 카드 + 큰 순위 숫자 (무드보드 1·10·16·14) */
+.top3{display:flex;gap:10px;margin:0;padding:0 18px 6px;list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 18px;scrollbar-width:none}
+.top3::-webkit-scrollbar{display:none}
+.top3 li{flex:0 0 74%;scroll-snap-align:start}
+.top3 button{position:relative;display:block;width:100%;aspect-ratio:4/5;padding:0;border:0;border-radius:22px;overflow:hidden;background:var(--ink-0);color:#fff;text-align:left}
+.top3 button.nophoto{background:var(--brand)}
+.top3 img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.top3 button:hover img{transform:scale(1.05)}
+.top3 button::before{content:"";position:absolute;left:0;right:0;top:0;z-index:1;height:42%;background:linear-gradient(180deg,rgba(10,12,14,.42),rgba(10,12,14,0));pointer-events:none}
+.top3 .no,.top3 .pc,.top3 .cap{z-index:2}
+.top3 .no{position:absolute;left:16px;top:8px;font-family:var(--num);font-weight:700;font-size:3.6rem;line-height:1;letter-spacing:-.04em;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.3)}
+.top3 li:first-child .no{color:var(--sun)}
+.top3 .pc{position:absolute;right:12px;top:14px;display:inline-flex;align-items:center;gap:4px;height:30px;padding:0 10px;border-radius:999px;background:rgba(10,12,14,.55);font-style:normal;font-size:.8rem;font-weight:700}
+.top3 .pc .ic{width:15px;height:15px}
+.top3 .cap{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;gap:4px;padding:64px 16px 16px;background:linear-gradient(180deg,rgba(10,12,14,0),rgba(10,12,14,.8) 50%)}
+.top3 .cap small{font-size:.82rem;font-weight:600;color:rgba(255,255,255,.82)}
+.top3 .cap b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:1.12rem;line-height:1.35;font-weight:800;letter-spacing:-.025em}
+.top3 .cnts{margin-top:2px;color:rgba(255,255,255,.86)}
+.hotsec .rank{margin-top:10px}
+.hotsec .rank li{border-top:1px solid #F1EEE7}
+.hotsec .rank .no,.hotsec .rank li:nth-child(-n+3) .no{width:28px;font-family:var(--num);font-weight:700;font-size:1.3rem;color:var(--mut-2)}
+
+/* 방금 올라온 글 */
+.fresh .fcard{border-bottom-color:#F1EEE7}
+.fresh .fimg{border-radius:18px}
+.fresh .ava.sm{background:var(--paper);color:var(--ink-0)}
+
+/* 바닥: 큰 워드마크 (무드보드 17) */
+.foot{padding:28px 20px 40px}
+.fwm{display:block;margin-bottom:10px;font-size:4.4rem;line-height:1;font-weight:900;letter-spacing:-.07em;color:var(--paper-2)}
+.scroller[data-v="home"] .fwm{color:#E2DCCD}
+.foot p{margin:0;color:var(--mut);font-size:.82rem;line-height:1.6}
+
+/* 은은한 등장 */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.bc,.top3 img,.banner .slide img,.banner .track{transition:none}.bc:hover{transform:none}}
+
+/* ===== PC: 제품 소개 판 (무드보드 19·20·17) ===== */
+.sbar,.wm{display:none}
+@media (min-width:900px){
+  body{background:var(--paper)}
+  .stage{position:relative;z-index:1;align-items:center;gap:56px;min-height:100vh;padding:24px 32px}
+  .wm{display:block;position:fixed;left:0;right:0;bottom:-.2em;z-index:-1;overflow:hidden;white-space:nowrap;text-align:center;font-family:var(--num);font-weight:700;font-size:21vw;line-height:1;letter-spacing:-.04em;color:rgba(22,24,27,.045);pointer-events:none}
+  .phone{border:10px solid var(--ink-0);border-radius:54px;box-shadow:0 50px 90px -30px rgba(22,24,27,.45),0 0 0 1px rgba(22,24,27,.25)}
+  .phone.wide{border-radius:40px}
+  .sbar{display:flex;flex:none;align-items:center;justify-content:space-between;height:38px;padding:0 24px 0 30px;background:var(--ink-0);color:#fff;font-family:var(--num);font-weight:700;font-size:14px}
+  .sbar i{width:100px;height:26px;border-radius:14px;background:#000}
+  .sig{display:flex;align-items:flex-end;gap:2px}
+  .sig b{width:3px;border-radius:1px;background:#fff}
+  .sig b:nth-child(1){height:4px}.sig b:nth-child(2){height:6px}.sig b:nth-child(3){height:8px}.sig b:nth-child(4){height:10px}
+  .sig em{width:20px;height:10px;margin-left:6px;border:1.5px solid #fff;border-radius:3px;box-shadow:inset -7px 0 0 #fff}
+  .demobar{background:var(--ink-0);border-top:1px solid #2A2D31}
+
+  .side{width:400px;position:static;align-self:center}
+  .side .eyebrow{display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:999px;background:var(--ink-0);color:#fff;font-size:13px;font-weight:600}
+  .side h1{margin:18px 0 0;font-size:44px;line-height:1.12;font-weight:800;letter-spacing:-.05em;color:var(--ink-0)}
+  .side h1 em{font-style:normal;color:var(--brand)}
+  .side h1 small{margin-left:8px;font-size:17px;font-weight:600;letter-spacing:0;color:var(--mut)}
+  .side>p{margin:14px 0 0;font-size:15px;line-height:1.6;color:var(--ink-2)}
+  .facts{display:grid;grid-template-columns:1.4fr 1fr 1fr;margin:22px 0 0;border-top:2px solid var(--ink-0)}
+  .facts div{padding:12px 10px 0 0}
+  .facts div+div{padding-left:14px;border-left:1px solid #DCD5C6}
+  .facts dt{font-family:var(--num);font-weight:700;font-size:28px;line-height:1.1;letter-spacing:-.03em;color:var(--ink-0)}
+  .facts dt span{margin-left:1px;font-size:16px}
+  .facts dd{margin:5px 0 0;font-size:12.5px;line-height:1.4;color:var(--mut)}
+  .side h2{margin:24px 0 10px;font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--mut)}
+  .sidenav{display:flex;flex-wrap:wrap;gap:6px}
+  .sidenav .go{display:inline-flex;width:auto;min-height:40px;padding:0 14px;border:0;border-radius:999px;background:#fff;color:var(--ink-0);font-size:14px;font-weight:600;transition:background .15s,color .15s}
+  .sidenav .go small{display:none}
+  .sidenav .go:hover{background:var(--ink-0);color:#fff}
+  .side .fsseg{max-width:300px;background:#fff}
+  .side .fsseg button{flex:1;font-size:14px}
+  .side .fsseg button[aria-pressed="true"]{background:var(--ink-0);color:#fff;box-shadow:none}
+  .side .credit{margin-top:14px;font-size:12px;line-height:1.5;color:var(--mut)}
+}
+.prow.pinned{background:#FAF8F3}
+.callouts{display:none}
+@media (min-width:1240px){
+  .callouts{display:block;position:relative;flex:none;align-self:stretch;width:270px}
+  .stage:has(.phone.wide) .callouts{display:none}
+  .co{position:absolute;left:0;right:0;display:grid;grid-template-columns:32px 1fr;column-gap:12px;row-gap:3px;padding:12px;border:0;border-radius:18px;background:transparent;text-align:left;transition:background .15s}
+  .co:hover{background:rgba(255,255,255,.75)}
+  .co i{grid-row:span 2;display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:var(--brand);color:#fff;font-style:normal;font-family:var(--num);font-weight:700;font-size:15px}
+  .co b{font-size:17px;font-weight:800;letter-spacing:-.02em;color:var(--ink-0)}
+  .co small{font-size:13px;line-height:1.5;color:var(--ink-2)}
+  .co::before{content:"";position:absolute;left:-54px;top:27px;width:54px;border-top:2px dotted rgba(22,24,27,.5)}
+  .co::after{content:"";position:absolute;left:-58px;top:24px;width:8px;height:8px;border-radius:50%;background:var(--ink-0)}
+}
 </style>
 </head>
 <body>
 <div class="stage">
   <aside class="side" aria-label="데모 안내">
-    <h1>놀판 (예시)<br>여행 커뮤니티 데모</h1>
-    <p>공고를 보고 만든 제안용 데모예요. 오른쪽 화면을 직접 눌러 보세요. 바꾼 내용은 새로고침하면 처음으로 돌아가요.</p>
-    <div class="box">
-      <h2>화면 바로가기</h2>
-      <div id="sideNav"></div>
-    </div>
-    <div class="box">
-      <h2>글자 크기</h2>
-      <div class="fsseg" id="sideFs"></div>
-      <p class="credit">사진: Unsplash 무료 라이선스 이미지. 글·닉네임·배너 문구는 모두 지어낸 예시예요.</p>
-    </div>
+    <span class="eyebrow">제안용 데모 · 그누보드5 테마 기준</span>
+    <h1>5060을 위한<br>여행 이야기 마당,<br><em>놀판</em><small>(예시)</small></h1>
+    <p>공고를 보고 만든 데모예요. 오른쪽 폰 화면을 직접 눌러 보세요. 바꾼 내용은 새로고침하면 처음으로 돌아가요.</p>
+    <dl class="facts">
+      <div><dt>17·19·21</dt><dd>글자 크기 3단계(px)</dd></div>
+      <div><dt>48<span>px</span></dt><dd>누르는 곳 최소 크기</dd></div>
+      <div><dt>19<span>+</span></dt><dd>성인 확인 후 가입</dd></div>
+    </dl>
+    <h2>화면 바로가기</h2>
+    <div id="sideNav" class="sidenav"></div>
+    <h2>글자 크기</h2>
+    <div class="fsseg" id="sideFs"></div>
+    <p class="credit">사진: Unsplash 무료 라이선스. 글·닉네임·배너 문구는 모두 지어낸 예시예요.</p>
   </aside>
 
   <div class="phone" id="phone">
+    <div class="sbar" aria-hidden="true"><span>9:41</span><i></i><span class="sig"><b></b><b></b><b></b><b></b><em></em></span></div>
     <div class="demobar" role="note"><b>제안용 데모 · 예시</b><span>실제 서비스가 아니에요</span><button type="button" id="mNav">화면 목록</button></div>
     <header class="appbar" id="appbar"></header>
     <main class="scroller" id="view" tabindex="-1"></main>
@@ -489,6 +657,13 @@ body{background:#EEF0F3}
     <button class="fab" id="fab" type="button" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>글쓰기</button>
     <div class="layer" id="layer" aria-live="polite"></div>
   </div>
+  <aside class="callouts" aria-label="이 데모에서 볼 것">
+    <button type="button" class="co" data-h="my" style="top:10%"><i>1</i><b>글자 크게 바꾸기</b><small>'가' 버튼 하나로 화면 전체가 17 → 19 → 21px</small></button>
+    <button type="button" class="co" data-h="admin" style="top:36%"><i>2</i><b>배너는 관리자가 직접</b><small>켜고 끄기·순서 바꾸기·사진 올리기, 신고 글 가리기</small></button>
+    <button type="button" class="co" data-h="join" style="top:58%"><i>3</i><b>만 19세 이상만 가입하기</b><small>카카오·네이버로 시작, 생년월일로 나이 확인</small></button>
+    <button type="button" class="co" data-h="board/abroad" style="top:80%"><i>4</i><b>게시판 세 곳 고르기</b><small>해외여행 · 국내여행 · 여행 라운지, 지역 탭과 분류 칩</small></button>
+  </aside>
+  <div class="wm" aria-hidden="true">NOLPAN</div>
 </div>
 
 <script>
@@ -582,7 +757,7 @@ let MEMBERS=[
 let BANNERS=[
  {id:1,title:'가을 단풍 여행 후기를 모아요',sub:'정선·설악 단풍 사진과 길 안내',img:IMG.valley,link:'#board/domestic',on:true},
  {id:2,title:'다낭 처음 가세요? 먼저 읽어 보세요',sub:'숙소·교통·날씨 질문 모음',img:IMG.gold,link:'#post/2',on:true},
- {id:3,title:'놀판 이용 규칙 안내',sub:'모두가 편한 커뮤니티를 위해',img:IMG.map,link:'#post/1',on:true},
+ {id:3,title:'놀판 이용 규칙 안내',sub:'모두가 편한 커뮤니티를 위해',img:IMG.halong,link:'#post/1',on:true},
  {id:4,title:'필리핀 섬 사진 모아 보기',sub:'회원님들이 찍은 바다 사진',img:IMG.elnido,link:'#board/lounge',on:false}
 ];
 
@@ -649,21 +824,37 @@ function vHome(){
   const notices=POSTS.filter(p=>p.notice&&vis(p)&&!p.blind);
   const hot=POSTS.filter(p=>vis(p)&&!p.blind&&!p.notice).map(p=>({p,s:p.likes*3+ncm(p)*5+p.views/20-p.ago/30})).sort((a,b)=>b.s-a.s).slice(0,7).map(x=>x.p);
   const cnt=k=>POSTS.filter(p=>p.board===k&&vis(p)&&p.ago<1440).length;
+  const total=['abroad','domestic','lounge'].reduce((a,k)=>a+cnt(k),0);
+  const D=['일','월','화','수','목','금','토'];
+  const hh=String(TODAY.getHours()).padStart(2,'0');
+  const bcard=(k,cls,extra='')=>{const b=BOARDS[k];return `<button class="bc ${cls}" type="button" data-go="board/${k}">${extra}<span class="bc-t"><b>${b.name}</b><small><i class="dot"></i>오늘 새 글 <em data-count="${cnt(k)}">${cnt(k)}</em></small></span><span class="bc-go">${ic('right')}</span></button>`};
   view.innerHTML=`
+  <section class="hello rv"><span class="today">${TODAY.getMonth()+1}월 ${TODAY.getDate()}일 ${D[TODAY.getDay()]}요일 · 오늘 새 글 <b>${total}</b></span><h2>오늘은 <em>어디로</em><br>떠나 볼까요?</h2></section>
   ${bs.length?`<section class="banner" aria-roledescription="carousel" aria-label="알림 배너">
-    <div class="track" id="track" style="transform:translateX(-${S.slide*100}%)">${bs.map((b,i)=>`<button class="slide" type="button" data-link="${esc(b.link)}" aria-label="${esc(b.title)}" ${i!==S.slide?'tabindex="-1"':''}><img src="${U(b.img,900)}" alt="" ${i?'loading="lazy"':''}><span class="txt"><strong>${esc(b.title)}</strong><small>${esc(b.sub)}</small></span></button>`).join('')}</div>
+    <div class="track" id="track" style="transform:translateX(-${S.slide*100}%)">${bs.map((b,i)=>`<button class="slide" type="button" data-link="${esc(b.link)}" aria-label="${esc(b.title)}" ${i!==S.slide?'tabindex="-1"':''}><img src="${U(b.img,900)}" alt="" ${i?'loading="lazy"':''}><span class="txt"><span class="eb">놀판 추천</span><strong>${esc(b.title)}</strong><small>${esc(b.sub)}</small></span></button>`).join('')}</div>
     <div class="count"><button type="button" data-sl="-1" aria-label="이전 배너">${ic('left')}</button><span id="slno">${S.slide+1} / ${bs.length}</span><button type="button" data-sl="1" aria-label="다음 배너">${ic('right')}</button></div>
   </section>`:''}
-  <nav class="quick" aria-label="게시판">${Object.entries(BOARDS).map(([k,b])=>`<button class="qk qk-${k}" type="button" data-go="board/${k}"><span class="ci">${ic(b.icon)}</span><b>${b.name}</b><small>새 글 <em>${cnt(k)}</em></small></button>`).join('')}</nav>
-  ${notices.map(n=>`<button class="notice-row" type="button" data-go="post/${n.id}"><span class="nt">공지</span><span>${esc(n.title.replace('[공지] ',''))}</span></button>`).join('')}
-  <div class="gap"></div><div class="sec-h hot"><h2>실시간 인기글</h2><span class="updated">${String(TODAY.getHours()).padStart(2,'0')}:00 기준 · 좋아요·댓글 많은 순</span></div>
-  <ol class="rank">${hot.map((p,i)=>`<li><button type="button" data-go="post/${p.id}"><span class="no">${i+1}</span><span class="t"><b>${esc(p.title)}</b><small>${BOARDS[p.board].name} · ${esc(p.region)}</small><span class="cnts"><span>${ic('eye')}${p.views.toLocaleString()}</span><span>${ic('heart')}${p.likes}</span><span>${ic('chat')}${ncm(p)}</span></span></span>${p.photos[0]?`<span class="thm"><img src="${U(p.photos[0],200)}" alt="" loading="lazy">${p.photos.length>1?`<i>${p.photos.length}</i>`:''}</span>`:''}</button></li>`).join('')}</ol>
-  <div class="gap"></div><div class="sec-h"><h2>방금 올라온 글</h2><button class="more" type="button" data-go="board/lounge">라운지 전체 보기</button></div>
-  <div class="feed">${POSTS.filter(p=>vis(p)&&!p.notice&&!p.blind&&p.reports<3).sort((a,b)=>a.ago-b.ago).slice(0,4).map(feedHTML).join('')}</div>
+  <nav class="boards${bs.length?'':' flat'}" aria-label="게시판">
+    ${bcard('abroad','dark',`<img class="bc-img" src="${U(IMG.elnido,600)}" alt="" loading="lazy">`)}
+    ${bcard('domestic','light',`<span class="bc-ic">${ic('pin')}</span>`)}
+    ${bcard('lounge','pine',`<span class="bc-ic">${ic('chat')}</span>`)}
+  </nav>
+  ${notices.map(n=>`<button class="ticket rv" type="button" data-go="post/${n.id}"><span class="stub">공지</span><span class="tt"><b>${esc(n.title.replace('[공지] ',''))}</b><small>놀판지기 · 꼭 읽어 주세요</small></span>${ic('right')}</button>`).join('')}
+  <section class="hotsec rv"><div class="sh"><span class="updated">${hh}:00 기준 · 좋아요·댓글 많은 순</span><h2>실시간 인기글</h2></div>
+  <ol class="top3">${hot.slice(0,3).map((p,i)=>`<li><button type="button" data-go="post/${p.id}" class="${p.photos[0]?'':'nophoto'}">${p.photos[0]?`<img src="${U(p.photos[0],600)}" alt="" loading="lazy">`:''}<span class="no">${i+1}</span>${p.photos.length>1?`<i class="pc">${ic('image')}${p.photos.length}</i>`:''}<span class="cap"><small>${BOARDS[p.board].name} · ${esc(p.region)}</small><b>${esc(p.title)}</b><span class="cnts"><span>${ic('heart')}${p.likes}</span><span>${ic('chat')}${ncm(p)}</span></span></span></button></li>`).join('')}</ol>
+  <ol class="rank" start="4">${hot.slice(3).map((p,i)=>`<li><button type="button" data-go="post/${p.id}"><span class="no">${i+4}</span><span class="t"><b>${esc(p.title)}</b><small>${BOARDS[p.board].name} · ${esc(p.region)}</small><span class="cnts"><span>${ic('eye')}${p.views.toLocaleString()}</span><span>${ic('heart')}${p.likes}</span><span>${ic('chat')}${ncm(p)}</span></span></span>${p.photos[0]?`<span class="thm"><img src="${U(p.photos[0],200)}" alt="" loading="lazy">${p.photos.length>1?`<i>${p.photos.length}</i>`:''}</span>`:''}</button></li>`).join('')}</ol></section>
+  <section class="fresh rv"><div class="sh row"><h2>방금 올라온 글</h2><button class="more" type="button" data-go="board/lounge">라운지 전체</button></div>
+  <div class="feed">${POSTS.filter(p=>vis(p)&&!p.notice&&!p.blind&&p.reports<3).sort((a,b)=>a.ago-b.ago).slice(0,4).map(feedHTML).join('')}</div></section>
   ${foot()}`;
-  startAuto();bindSwipe();
+  startAuto();bindSwipe();reveal();
 }
-function foot(){return `<p class="foot">놀판 (예시)는 제안용 데모예요. 실제 회사·서비스와 관계가 없어요. 사진: Unsplash 무료 이미지. 만 19세 이상만 가입할 수 있는 커뮤니티를 가정했어요.</p>`}
+/* 은은한 등장 (움직임 줄이기 설정이면 꺼짐) */
+const RM=matchMedia('(prefers-reduced-motion: reduce)');
+function reveal(){const els=view.querySelectorAll('.rv');if(RM.matches||!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return}
+  const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{root:view,threshold:.08});
+  els.forEach(e=>io.observe(e));
+  view.querySelectorAll('[data-count]').forEach(el=>{const n=+el.dataset.count;let i=0;const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/700);el.textContent=Math.round(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};el.textContent='0';requestAnimationFrame(f)})}
+function foot(){return `<footer class="foot"><span class="fwm" aria-hidden="true">놀판</span><p>놀판 (예시)는 제안용 데모예요. 실제 회사·서비스와 관계가 없어요. 사진: Unsplash 무료 이미지. 만 19세 이상만 가입할 수 있는 커뮤니티를 가정했어요.</p></footer>`}
 let autoT;function startAuto(){clearInterval(autoT);autoT=setInterval(()=>{if(route().name!=='home'||layer.children.length)return;slideBy(1)},5000)}
 function slideBy(d){const n=BANNERS.filter(b=>b.on).length;if(!n)return;S.slide=(S.slide+d+n)%n;const t=$('#track');if(!t)return;t.style.transform=`translateX(-${S.slide*100}%)`;$('#slno').textContent=`${S.slide+1} / ${n}`;t.querySelectorAll('.slide').forEach((s,i)=>s.tabIndex=i===S.slide?0:-1)}
 function bindSwipe(){const b=view.querySelector('.banner');if(!b)return;let x0=null;b.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});b.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){slideBy(dx<0?1:-1);startAuto()}x0=null})}
@@ -981,6 +1172,7 @@ const SHORT=[['home','홈','배너·세 게시판·인기글'],['board/abroad','
 function goShort(h){closeLayer();if(h==='write'){if(!S.user)login('은퇴후여행');return startWrite('abroad','다낭·호이안','후기')}if(h==='join'){S.user=null;S.join={step:'start',via:'',birth:null,agree:{}}}if(h==='my'&&!S.user)login('은퇴후여행');go(h)}
 $('#sideNav').innerHTML=SHORT.map(([h,l,d])=>`<button class="go" type="button" data-h="${h}"><span>${l}</span><small>${d}</small></button>`).join('');
 $('#sideNav').addEventListener('click',e=>{const b=e.target.closest('[data-h]');if(b)goShort(b.dataset.h)});
+document.querySelector('.callouts').addEventListener('click',e=>{const b=e.target.closest('[data-h]');if(b)goShort(b.dataset.h)});
 $('#mNav').addEventListener('click',()=>sheet(`<h3>화면 목록</h3><div>${SHORT.map(([h,l,d])=>`<button class="go" type="button" data-h="${h}" style="display:flex;justify-content:space-between;align-items:center;width:100%;min-height:52px;border:0;border-bottom:1px solid var(--line-2);background:none;text-align:left;font-size:1rem"><span>${l}</span><small style="color:var(--mut);font-size:.82rem">${d}</small></button>`).join('')}</div><div class="btns one" style="margin-top:12px"><button class="btn" type="button" data-close>닫기</button></div>`,e=>{const b=e.target.closest('[data-h]');if(b)goShort(b.dataset.h)}));
 
 renderSideFs();S.hist.push(location.hash||'#home');render();
